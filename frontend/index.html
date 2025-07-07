@@ -1780,6 +1780,27 @@
           targetPositionX = props.positionX;
           targetPositionY = props.positionY || 0;
           targetZoom = props.zoom;
+
+          // --- Mobile-specific adjustments for model view ---
+          if (window.innerWidth <= 768) { // Check if it's a mobile view
+            // For mobile, center the model horizontally in all content sections
+            targetPositionX = 0;
+            // Adjust vertical position for mobile if needed (e.g., slightly lower for better visibility)
+            // For home section, keep original Y. For others, maybe slightly lower or center.
+            if (currentSection !== 'home') {
+                targetPositionY = -0.2; // Slightly lower for content sections on mobile
+            } else {
+                targetPositionY = props.positionY; // Keep home section's specific Y
+            }
+
+            // Adjust zoom for mobile to ensure the model is well-framed
+            if (currentSection === 'home') {
+                targetZoom = 12.0; // Slightly more zoomed out for home on mobile to show more of the model
+            } else {
+                targetZoom = 7.0; // Adjust zoom for content sections on mobile
+            }
+          }
+          // --- End mobile adjustments ---
         }
       }
 
