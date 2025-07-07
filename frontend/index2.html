@@ -11,23 +11,26 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
     <style>
       body {
         font-family: "Inter", sans-serif;
         margin: 0;
         padding: 0;
         overflow-x: hidden; /* Prevent horizontal scrolling */
-        /* Changed body background to match index.html's darker theme */
-        background-color: rgb(11, 11, 11);
+        background-color: rgb(11, 11, 11); /* Dark background */
+        color: white; /* Default text color */
       }
       /* Custom gradient background for the overall page */
       .gradient-bg-full {
-        /* Adjusted gradient to be darker and more subtle, similar to index.html's overall dark tone */
         background: linear-gradient(135deg, #111111 0%, #000000 100%);
       }
       /* Custom gradient text for the heading */
       .gradient-text {
-        /* Changed to white to light gray gradient */
         background: linear-gradient(90deg, #e0e0e0, #ffffff);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -44,15 +47,15 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: background-color 0.2s;
+        transition: background-color 0.2s, transform 0.2s;
       }
       .player-control-circle:hover {
         background-color: #6a6a6a;
+        transform: scale(1.1);
       }
       .waveform-bar {
         width: 4px;
-        /* Changed to a subtle light gray */
-        background-color: #f0f0f0;
+        background-color: #f0f0f0; /* Subtle light gray */
         margin: 0 1px;
         border-radius: 2px;
         animation: waveform-animation 1.5s ease-in-out infinite alternate;
@@ -123,13 +126,12 @@
       .player-box-custom {
         background-color: #1a1a1a; /* Very dark background */
         border-radius: 2.5rem; /* Rounded corners */
-        /* Adjusted shadow for a more subtle, integrated look */
         box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5),
           0 5px 20px rgba(0, 0, 0, 0.6);
         border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border */
       }
 
-      /* Popup styles (copied from index.html) */
+      /* Popup styles */
       .popup-overlay {
         display: none;
         position: fixed;
@@ -137,34 +139,28 @@
         left: 0;
         height: 100vh;
         width: 100vw;
-        background: rgba(0, 0, 0, 0.6); /* More transparent overlay */
+        background: rgba(0, 0, 0, 0.6);
         justify-content: center;
         align-items: center;
         z-index: 1000;
-        backdrop-filter: blur(10px); /* Increased blur for glass effect */
+        backdrop-filter: blur(10px);
       }
 
       .popup {
-        background: rgba(
-          20,
-          20,
-          20,
-          0.7
-        ); /* Transparent background for popup */
-        padding: 2rem; /* Decreased padding to reduce height */
-        border-radius: 15px; /* Slightly less rounded corners */
-        max-width: 500px; /* Increased max-width for wider form */
+        background: rgba(20, 20, 20, 0.7);
+        padding: 2rem;
+        border-radius: 15px;
+        max-width: 500px;
         width: 90%;
-        max-height: 90vh; /* Set a max-height for the popup */
-        overflow-y: hidden; /* Prevent scrolling on the main popup */
+        max-height: 90vh;
+        overflow-y: hidden;
         text-align: center;
-        color: white; /* White text for contrast */
+        color: white;
         position: relative;
-        box-shadow: 0 0 30px rgba(255, 255, 255, 0.4); /* More pronounced glow */
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
         animation: popupIn 0.5s ease-out forwards;
-        will-change: transform, opacity;
-        box-sizing: border-box; /* Ensure padding is included in width */
-        border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+        box-sizing: border-box;
+        border: 1px solid rgba(255, 255, 255, 0.3);
       }
 
       @keyframes popupIn {
@@ -180,40 +176,39 @@
 
       .popup .close {
         position: absolute;
-        top: 15px; /* Adjusted position */
-        right: 20px; /* Adjusted position */
-        font-size: 28px; /* Larger close button */
+        top: 15px;
+        right: 20px;
+        font-size: 28px;
         background: transparent;
         border: none;
         cursor: pointer;
-        color: rgba(255, 255, 255, 0.6); /* Lighter color for close button */
+        color: rgba(255, 255, 255, 0.6);
         transition: all 0.3s ease;
       }
 
       .popup .close:hover {
         transform: rotate(90deg);
-        color: white; /* White on hover */
+        color: white;
       }
 
       .popup h2 {
-        font-size: 2rem; /* Larger heading */
+        font-size: 2rem;
         margin-bottom: 1rem;
         color: white;
       }
 
       .popup p {
-        font-size: 1.1rem; /* Larger paragraph text */
+        font-size: 1.1rem;
         margin-bottom: 1.5rem;
         opacity: 0.8;
       }
 
       /* Preorder form specific styles within the popup */
       .preorder-form-popup {
-        overflow-y: auto; /* Add scroll to the form content */
-        /* Calculate max height for the form content, leaving space for title, paragraph, and button */
+        overflow-y: auto;
         max-height: calc(90vh - 200px);
-        padding-right: 15px; /* Add padding for the scrollbar to not overlap content */
-        box-sizing: border-box; /* Include padding in width calculation */
+        padding-right: 15px;
+        box-sizing: border-box;
       }
 
       /* Custom scrollbar for the form */
@@ -222,34 +217,34 @@
       }
 
       .preorder-form-popup::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.2); /* Darker, more subtle track */
+        background: rgba(0, 0, 0, 0.2);
         border-radius: 4px;
       }
 
       .preorder-form-popup::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.15); /* Darker, more subtle thumb */
+        background: rgba(255, 255, 255, 0.15);
         border-radius: 4px;
       }
 
       .preorder-form-popup::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.25); /* Slightly lighter on hover */
+        background: rgba(255, 255, 255, 0.25);
       }
 
       .preorder-form-popup .form-group {
-        display: flex; /* Ensure flex for consistent stacking */
-        flex-direction: column; /* Stack label and input vertically */
-        margin-bottom: 1.5rem; /* Increased space between form groups */
-        align-items: flex-start; /* Align items to the start for left-aligned labels */
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+        align-items: flex-start;
       }
 
       .preorder-form-popup label {
-        display: block; /* Ensure label takes its own line */
-        color: rgba(255, 255, 255, 0.9); /* Slightly brighter label color */
-        font-size: 1.05rem; /* Slightly larger label font */
-        margin-bottom: 0.6rem; /* Increased space between label and input */
-        font-weight: 500; /* Added medium font weight */
-        text-align: left; /* Explicitly left-align labels */
-        width: 100%; /* Ensure label takes full width for alignment */
+        display: block;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.05rem;
+        margin-bottom: 0.6rem;
+        font-weight: 500;
+        text-align: left;
+        width: 100%;
       }
 
       .preorder-form-popup input[type="text"],
@@ -257,23 +252,17 @@
       .preorder-form-popup input[type="tel"],
       .preorder-form-popup textarea,
       .preorder-form-popup select {
-        /* Apply common styles to select as well */
-        background: rgba(
-          255,
-          255,
-          255,
-          0.1
-        ); /* Slightly brighter input background */
-        border: 1px solid rgba(255, 255, 255, 0.3); /* More visible border */
-        padding: 1.1rem; /* Increased padding for inputs */
-        border-radius: 8px; /* More rounded inputs */
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 1.1rem;
+        border-radius: 8px;
         color: white;
-        font-family: "Inter", sans-serif; /* Ensure Inter font */
-        font-size: 1rem; /* Larger input font size */
+        font-family: "Inter", sans-serif;
+        font-size: 1rem;
         transition: all 0.3s ease;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
-        width: 100%; /* Ensure inputs/selects take full width */
-        box-sizing: border-box; /* Include padding and border in element's total width and height */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        box-sizing: border-box;
       }
 
       /* Specific style for select element in preorder form, overriding common styles for appearance */
@@ -281,17 +270,17 @@
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Custom white arrow */
+        background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
         background-repeat: no-repeat;
         background-position: right 0.8rem center;
         background-size: 1.2em;
-        padding-right: 2.5rem; /* Space for the custom arrow */
+        padding-right: 2.5rem;
       }
 
       /* Style for options within the select dropdown */
       .preorder-form-popup select option {
-        background-color: rgb(20, 20, 20); /* Dark background for options */
-        color: white; /* White text for options */
+        background-color: rgb(20, 20, 20);
+        color: white;
       }
 
       .preorder-form-popup input[type="text"]:focus,
@@ -299,59 +288,28 @@
       .preorder-form-popup input[type="tel"]:focus,
       .preorder-form-popup textarea:focus,
       .preorder-form-popup select:focus {
-        background: rgba(
-          255,
-          255,
-          255,
-          0.15
-        ); /* Slightly less bright on focus */
-        border-color: rgba(
-          255,
-          255,
-          255,
-          0.5
-        ); /* Softer white border on focus */
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.5); /* Darker, more subtle glow on focus */
-        outline: none; /* Ensure no default outline */
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+        outline: none;
       }
 
       .preorder-form-popup .submit-btn {
-        /* Changed to white background with black text, similar to index.html's preorder button */
         background: white;
         color: black;
-        padding: 1.3rem; /* Larger button padding */
-        border-radius: 30px; /* Fully rounded button */
-        font-size: 1.15rem; /* Slightly larger button font */
+        padding: 1.3rem;
+        border-radius: 30px;
+        font-size: 1.15rem;
         font-weight: bold;
         letter-spacing: 0.05em;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3); /* Subtle black shadow */
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
         transition: all 0.3s ease;
       }
 
       .preorder-form-popup .submit-btn:hover {
-        /* Darker gray on hover */
         background: #ddd;
-        transform: translateY(-4px) scale(1.03); /* More pronounced hover effect */
+        transform: translateY(-4px) scale(1.03);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-      }
-
-      /* Styles for the navigation bar to match index.html */
-      .main-nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 1rem 2rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        z-index: 100;
-        /* Added background and backdrop-filter similar to index.html */
-        background: rgba(11, 10, 10, 0.5);
-        backdrop-filter: blur(10px);
-        box-sizing: border-box;
-        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        will-change: transform, background, padding;
       }
 
       /* Styles for radio buttons */
@@ -384,7 +342,7 @@
         outline: none;
         cursor: pointer;
         transition: all 0.2s ease;
-        flex-shrink: 0; /* Prevent shrinking */
+        flex-shrink: 0;
       }
 
       .radio-option input[type="radio"]:checked {
@@ -396,7 +354,7 @@
         content: "";
         width: 8px;
         height: 8px;
-        background-color: rgb(11, 11, 11); /* Inner dot color */
+        background-color: rgb(11, 11, 11);
         border-radius: 50%;
         position: absolute;
         top: 50%;
@@ -439,20 +397,174 @@
       }
 
       .checkbox-group input[type="checkbox"]:checked::before {
-        content: "✔"; /* Checkmark symbol */
+        content: "✔";
         font-size: 14px;
-        color: rgb(11, 11, 11); /* Checkmark color */
+        color: rgb(11, 11, 11);
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        line-height: 1; /* Adjust line height for better centering */
+        line-height: 1;
       }
 
       .checkbox-group label {
         color: rgba(255, 255, 255, 0.8);
         font-size: 0.95rem;
         cursor: pointer;
+      }
+
+      /* Navigation Bar (Desktop & Mobile) */
+      .main-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        background: rgba(11, 10, 10, 0.5);
+        backdrop-filter: blur(10px);
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+      }
+
+      /* Mobile Menu Specific Styles */
+      .hamburger-menu {
+        display: none; /* Hidden by default, shown on mobile */
+        cursor: pointer;
+        font-size: 1.8rem;
+        color: white;
+        z-index: 101;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+      }
+
+      .mobile-menu-overlay {
+        display: none; /* Hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(11, 10, 10, 0.95);
+        backdrop-filter: blur(15px);
+        z-index: 99;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .mobile-menu-overlay.active {
+        display: flex;
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .mobile-menu-overlay .nav-links {
+        flex-direction: column;
+        gap: 2rem;
+        margin-right: 0;
+      }
+
+      .mobile-menu-overlay .nav-link {
+        font-size: 1.5rem;
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        text-align: center;
+        width: fit-content;
+        opacity: 0; /* For staggered animation */
+        transform: translateY(20px); /* For staggered animation */
+        transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+      }
+
+      .mobile-menu-overlay .nav-link:hover,
+      .mobile-menu-overlay .nav-link.active {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-5px) scale(1.05);
+        color: #fff;
+      }
+
+      .mobile-menu-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 2rem;
+        font-size: 2rem;
+        color: white;
+        cursor: pointer;
+        background: none;
+        border: none;
+        transition: transform 0.3s ease;
+      }
+      .mobile-menu-close:hover {
+        transform: rotate(90deg) scale(1.1);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .main-nav {
+          padding: 0.7rem 1rem;
+        }
+
+        .main-nav .nav-items-desktop {
+          display: none; /* Hide desktop nav items */
+        }
+
+        .hamburger-menu {
+          display: block; /* Show hamburger menu */
+        }
+
+        .hero-content {
+          text-align: center;
+          align-items: center;
+        }
+
+        .hero-content h1 {
+          font-size: 3.5rem; /* Adjust font size for mobile */
+        }
+
+        .hero-content p {
+          font-size: 1rem; /* Adjust font size for mobile */
+        }
+
+        .cta-buttons {
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .cta-buttons button {
+          width: 80%; /* Make buttons wider on mobile */
+          max-width: 300px;
+        }
+
+        .feature-highlights {
+          grid-template-columns: 1fr; /* Stack features on mobile */
+          text-align: center;
+        }
+
+        .player-box-custom {
+          width: 90%; /* Adjust player width for mobile */
+          height: 250px; /* Adjust player height for mobile */
+        }
+
+        .bottom-text {
+          font-size: 2.5rem; /* Adjust bottom text size for mobile */
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero-content h1 {
+          font-size: 2.8rem;
+        }
+        .bottom-text {
+          font-size: 2rem;
+        }
       }
     </style>
   </head>
@@ -464,8 +576,13 @@
       <!-- Logo -->
       <div class="text-white text-2xl font-semibold">ANTIQ</div>
 
-      <!-- Nav Items -->
-      <div class="flex items-center gap-6">
+      <!-- Hamburger menu icon for mobile -->
+      <div class="hamburger-menu" id="hamburgerMenu">
+        <i class="fas fa-bars"></i>
+      </div>
+
+      <!-- Nav Items (Desktop) -->
+      <div class="flex items-center gap-6 nav-items-desktop">
         <a
           href="index.html#home"
           class="text-white text-lg font-medium hover:text-purple-300 transition-colors duration-300"
@@ -476,14 +593,12 @@
           class="text-white text-lg font-medium hover:text-purple-300 transition-colors duration-300"
           >Features</a
         >
-        <!-- Updated Pre-order link to open form directly on this page -->
         <a
           href="#"
           onclick="showPopup('preorder')"
           class="text-white text-lg font-medium hover:text-purple-300 transition-colors duration-300"
           >Pre-order</a
         >
-        <!-- Updated Pre-order Now button to open form directly on this page -->
         <button
           onclick="showPopup('preorder')"
           class="bg-white text-black font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-75"
@@ -493,6 +608,24 @@
       </div>
     </nav>
 
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+      <button class="mobile-menu-close" id="mobileMenuClose">×</button>
+      <div class="nav-links">
+        <a href="index.html#home" class="nav-link">Home</a>
+        <a href="index.html#features" class="nav-link">Features</a>
+        <a href="#" onclick="showPopup('preorder')" class="nav-link"
+          >Pre-order</a
+        >
+        <button
+          onclick="showPopup('preorder')"
+          class="bg-white text-black font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-75 mt-4"
+        >
+          Pre-order Now
+        </button>
+      </div>
+    </div>
+
     <!-- Main Content Area -->
     <div class="flex flex-col lg:flex-row w-full">
       <!-- Left Section: Dark background with content -->
@@ -501,15 +634,19 @@
       >
         <!-- Hero Content -->
         <main
-          class="flex-grow flex flex-col justify-center items-start text-left max-w-xl md:mx-0"
+          class="flex-grow flex flex-col justify-center items-start text-left max-w-xl md:mx-0 hero-content"
         >
           <h1
             class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
+            id="hero-headline"
           >
             <span class="text-white">The Future of</span> <br />
             <span class="gradient-text">Music Experience</span>
           </h1>
-          <p class="text-gray-300 text-lg md:text-xl mb-10 leading-relaxed">
+          <p
+            class="text-gray-300 text-lg md:text-xl mb-10 leading-relaxed"
+            id="hero-paragraph"
+          >
             ANTIQ reimagines the classic radio for the modern era. Combining
             vintage aesthetics with cutting-edge technology for an unparalleled
             audio journey.
@@ -517,9 +654,8 @@
 
           <!-- Call to Action Buttons -->
           <div
-            class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-20 w-full sm:w-auto"
+            class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-20 w-full sm:w-auto cta-buttons"
           >
-            <!-- Updated Pre-order Now button to open form directly on this page -->
             <button
               onclick="showPopup('preorder')"
               class="bg-white text-black font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-75"
@@ -536,17 +672,17 @@
 
         <!-- Feature Highlights -->
         <div
-          class="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-auto mb-10 max-w-xl md:mx-0"
+          class="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-auto mb-10 max-w-xl md:mx-0 feature-highlights"
         >
-          <div class="text-center sm:text-left">
+          <div class="text-center sm:text-left fade-in-element">
             <h3 class="text-white text-3xl font-bold rounded-md">24bit</h3>
             <p class="text-gray-400 text-sm mt-1 rounded-md">Hi-Res Audio</p>
           </div>
-          <div class="text-center sm:text-left">
+          <div class="text-center sm:text-left fade-in-element">
             <h3 class="text-white text-3xl font-bold rounded-md">30hr</h3>
             <p class="text-gray-400 text-sm mt-1 rounded-md">Battery Life</p>
           </div>
-          <div class="text-center sm:text-left">
+          <div class="text-center sm:text-left fade-in-element">
             <h3 class="text-white text-3xl font-bold rounded-md">AI</h3>
             <p class="text-gray-400 text-sm mt-1 rounded-md">Powered</p>
           </div>
@@ -586,56 +722,22 @@
           <!-- Player controls -->
           <div class="flex justify-around items-center w-full px-4">
             <div class="player-control-circle">
-              <!-- Volume Down Icon (Placeholder) -->
-              <svg
-                class="w-4 h-4 text-gray-300"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  d="M10 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zM5 7a1 1 0 011 1v4a1 1 0 11-2 0V8a1 1 0 011-1zM15 7a1 1 0 011 1v4a1 1 0 11-2 0V8a1 1 0 011-1z"
-                ></path>
-              </svg>
+              <!-- Volume Down Icon -->
+              <i class="fas fa-volume-down text-gray-300"></i>
             </div>
             <div
               class="player-control-circle w-12 h-12 bg-gray-800 hover:bg-gray-700"
             >
-              <!-- Play/Pause Icon (Placeholder) -->
-              <svg
-                class="w-6 h-6 text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
+              <!-- Play/Pause Icon -->
+              <i class="fas fa-play text-white"></i>
             </div>
             <div class="player-control-circle">
-              <!-- Headphones Icon (Placeholder) -->
-              <svg
-                class="w-4 h-4 text-gray-300"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zm-2 2a1 1 0 00-1 1v3a1 1 0 001 1h2a1 1 0 001-1V9a1 1 0 00-1-1H9z"
-                ></path>
-              </svg>
+              <!-- Headphones Icon -->
+              <i class="fas fa-headphones text-gray-300"></i>
             </div>
             <div class="player-control-circle">
-              <!-- Volume Up Icon (Placeholder) -->
-              <svg
-                class="w-4 h-4 text-gray-300"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  d="M10 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zM5 7a1 1 0 011 1v4a1 1 0 11-2 0V8a1 1 0 011-1zM15 7a1 1 0 011 1v4a1 1 0 11-2 0V8a1 1 0 011-1z"
-                ></path>
-              </svg>
+              <!-- Volume Up Icon -->
+              <i class="fas fa-volume-up text-gray-300"></i>
             </div>
           </div>
         </div>
@@ -644,12 +746,12 @@
 
     <!-- Bottom Text -->
     <div
-      class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-opacity-10 text-5xl md:text-6xl font-extrabold tracking-widest pointer-events-none whitespace-nowrap z-0"
+      class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-opacity-10 text-5xl md:text-6xl font-extrabold tracking-widest pointer-events-none whitespace-nowrap z-0 bottom-text"
     >
       EXPERIENCE THE REVOLUTION
     </div>
 
-    <!-- Popup Overlay (Copied from index.html) -->
+    <!-- Popup Overlay -->
     <div class="popup-overlay" id="popupOverlay">
       <div class="popup">
         <button class="close" onclick="hidePopup()">×</button>
@@ -657,8 +759,9 @@
       </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script>
-      // Product data for the preorder form (Copied from index.html)
+      // Product data for the preorder form
       const products = [
         { id: "classic", name: "ANTIQ Classic", price: "$899" },
         { id: "pro", name: "ANTIQ Pro", price: "$1,299" },
@@ -667,7 +770,7 @@
       ];
 
       /**
-       * Shows a generic popup with specified content. (Copied and adapted from index.html)
+       * Shows a generic popup with specified content.
        */
       function showPopup(type) {
         const popupOverlay = document.getElementById("popupOverlay");
@@ -753,9 +856,6 @@
               const formData = new FormData(this);
               const data = Object.fromEntries(formData.entries());
 
-              // Ensure quantity is a number
-              data.quantity = parseInt(data.quantity, 10);
-
               try {
                 // *** IMPORTANT CHANGE HERE: Update the URL to your live backend URL ***
                 const response = await fetch(
@@ -794,20 +894,115 @@
       }
 
       /**
-       * Hides the currently active popup. (Copied from index.html)
+       * Hides the currently active popup.
        */
       function hidePopup() {
         const popupOverlay = document.getElementById("popupOverlay");
         popupOverlay.style.display = "none";
       }
 
-      // Removed the URL parameter check that redirected to index.html
-      // document.addEventListener('DOMContentLoaded', () => {
-      //     const urlParams = new URLSearchParams(window.location.search);
-      //     if (urlParams.get('openPreorder') === 'true') {
-      //         window.location.href = 'index.html?openPreorder=true';
-      //     }
-      // });
+      // GSAP Animations
+      document.addEventListener("DOMContentLoaded", () => {
+        const heroHeadline = document.getElementById("hero-headline");
+        const heroParagraph = document.getElementById("hero-paragraph");
+        const ctaButtons = document.querySelector(".cta-buttons");
+        const featureElements = document.querySelectorAll(".fade-in-element");
+        const bottomText = document.querySelector(".bottom-text");
+
+        // Hero section animations
+        gsap.from(heroHeadline, {
+          opacity: 0,
+          y: 50,
+          duration: 1,
+          ease: "power3.out",
+          delay: 0.5,
+        });
+        gsap.from(heroParagraph, {
+          opacity: 0,
+          y: 50,
+          duration: 1,
+          ease: "power3.out",
+          delay: 0.7,
+        });
+        gsap.from(ctaButtons.children, {
+          opacity: 0,
+          y: 50,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.2,
+          delay: 0.9,
+        });
+
+        // Feature highlights fade-in on scroll (if not already visible)
+        featureElements.forEach((el) => {
+          gsap.from(el, {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 90%", // When the top of the element is 90% in viewport
+              toggleActions: "play none none none",
+            },
+          });
+        });
+
+        // Bottom text animation
+        gsap.from(bottomText, {
+          opacity: 0,
+          scale: 0.8,
+          duration: 1.5,
+          ease: "power2.out",
+          delay: 1.5,
+        });
+
+        // Mobile menu toggle logic
+        const hamburgerMenu = document.getElementById("hamburgerMenu");
+        const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
+        const mobileMenuClose = document.getElementById("mobileMenuClose");
+        const mobileNavLinks = document.querySelectorAll(
+          ".mobile-menu-overlay .nav-link"
+        );
+        const mobilePreorderButton = document.querySelector(
+          ".mobile-menu-overlay .bg-white"
+        ); // Select the button in the mobile menu
+
+        if (hamburgerMenu) {
+          hamburgerMenu.addEventListener("click", () => {
+            mobileMenuOverlay.classList.add("active");
+            gsap.fromTo(
+              mobileNavLinks,
+              { opacity: 0, y: 20 },
+              { opacity: 1, y: 0, duration: 0.3, stagger: 0.05, ease: "power2.out" }
+            );
+            gsap.fromTo(
+              mobilePreorderButton,
+              { opacity: 0, y: 20 },
+              { opacity: 1, y: 0, duration: 0.3, delay: 0.2, ease: "power2.out" }
+            );
+          });
+        }
+
+        if (mobileMenuClose) {
+          mobileMenuClose.addEventListener("click", () => {
+            gsap.to(mobileNavLinks, { opacity: 0, y: 20, duration: 0.2, stagger: 0.05, ease: "power2.in" });
+            gsap.to(mobilePreorderButton, { opacity: 0, y: 20, duration: 0.2, ease: "power2.in", onComplete: () => {
+              mobileMenuOverlay.classList.remove("active");
+            }});
+          });
+        }
+
+        // Close mobile menu when a link inside it is clicked
+        mobileNavLinks.forEach((link) => {
+          link.addEventListener("click", () => {
+            gsap.to(mobileNavLinks, { opacity: 0, y: 20, duration: 0.2, stagger: 0.05, ease: "power2.in" });
+            gsap.to(mobilePreorderButton, { opacity: 0, y: 20, duration: 0.2, ease: "power2.in", onComplete: () => {
+              mobileMenuOverlay.classList.remove("active");
+            }});
+          });
+        });
+      });
     </script>
   </body>
 </html>
