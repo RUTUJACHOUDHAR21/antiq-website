@@ -991,7 +991,7 @@
           display: none; /* Hide desktop nav links */
         }
 
-        .nav-preorder {
+        .nav-preorder-button { /* Target the button specifically */
           display: none; /* Hide desktop preorder button */
         }
 
@@ -1948,7 +1948,8 @@
         let newSection = "home";
         sections.forEach((section) => {
           const rect = section.getBoundingClientRect();
-          if (rect.top <= window.innerHeight * 0.5 && rect.bottom >= 0) {
+          // Adjust the threshold for section activation
+          if (rect.top <= window.innerHeight * 0.5 && rect.bottom >= window.innerHeight * 0.5) {
             newSection = section.id;
           }
         });
