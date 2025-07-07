@@ -202,6 +202,9 @@
       .mobile-menu-overlay .nav-link {
         font-size: 1.5rem;
         padding: 0.8rem 0;
+        /* Initial state for animation */
+        opacity: 0;
+        transform: translateY(20px);
       }
 
       /* Close button for mobile menu */
@@ -2326,6 +2329,8 @@
         const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
         const mobileMenuClose = document.getElementById("mobileMenuClose");
         const hamburgerIcon = hamburgerMenu.querySelector('i'); // Get the icon element
+        const mobileNavLinks = document.querySelectorAll('.mobile-menu-overlay .nav-link');
+
 
         if (hamburgerMenu) {
           hamburgerMenu.addEventListener("click", () => {
@@ -2342,13 +2347,32 @@
                 gsap.fromTo(hamburgerIcon, { rotation: -180, opacity: 0 }, { rotation: 0, opacity: 1, duration: 0.2 });
               }
             });
+
+            // Animate mobile menu links
+            gsap.fromTo(mobileNavLinks,
+              { opacity: 0, y: 20 },
+              { opacity: 1, y: 0, duration: 0.3, stagger: 0.05, ease: "power2.out" }
+            );
           });
         }
 
         if (mobileMenuClose) {
           mobileMenuClose.addEventListener("click", () => {
-            mobileMenuOverlay.classList.remove("active");
-            mainNav.classList.remove("menu-open"); // Remove class from main-nav
+            // Animate mobile menu links out before closing overlay
+            gsap.to(mobileNavLinks,
+              {
+                opacity: 0,
+                y: 20,
+                duration: 0.3,
+                stagger: 0.05,
+                ease: "power2.in",
+                onComplete: () => {
+                  mobileMenuOverlay.classList.remove("active");
+                  mainNav.classList.remove("menu-open"); // Remove class from main-nav
+                }
+              }
+            );
+
             // Animate icon back to 'bars'
             gsap.to(hamburgerIcon, {
               rotation: 180, // Rotate 180 degrees
