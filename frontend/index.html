@@ -984,7 +984,15 @@
       /* Responsive adjustments */
       @media (max-width: 768px) {
         .main-nav {
-          padding: 0.8rem 1.5rem; /* Adjust padding for smaller screens */
+          padding: 0.7rem 1rem; /* Slightly reduced padding for mobile */
+        }
+
+        .nav-logo {
+          height: 50px; /* Adjust logo height for mobile */
+          width: auto; /* Maintain aspect ratio */
+        }
+        .main-nav.scrolled .nav-logo {
+          height: 40px; /* Smaller scrolled logo for mobile */
         }
 
         .nav-links {
@@ -997,6 +1005,7 @@
 
         .hamburger-menu {
           display: block; /* Show hamburger menu icon */
+          font-size: 1.5rem; /* Slightly smaller hamburger icon for better balance */
         }
 
         .split-view {
