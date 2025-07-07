@@ -201,11 +201,39 @@
 
       .mobile-menu-overlay .nav-link {
         font-size: 1.5rem;
-        padding: 0.8rem 0;
+        padding: 0.8rem 1.5rem; /* Increased padding for better tap target */
+        border-radius: 10px; /* Rounded corners for menu items */
+        text-align: center;
+        width: fit-content; /* Adjust width to content */
         /* Initial state for animation */
         opacity: 0;
         transform: translateY(20px);
+        transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
       }
+
+      .mobile-menu-overlay .nav-link:hover,
+      .mobile-menu-overlay .nav-link.active {
+        background-color: rgba(255, 255, 255, 0.1); /* Subtle background on hover/active */
+        transform: translateY(-5px) scale(1.05); /* Slight lift and scale */
+        color: #fff;
+      }
+
+      /* Specific style for the Preorder button in mobile menu */
+      .mobile-menu-overlay .nav-preorder-button {
+        background-color: white;
+        color: black !important;
+        padding: 0.8rem 2rem;
+        border-radius: 30px;
+        font-weight: bold;
+        margin-top: 1rem; /* Add some space from other links */
+      }
+
+      .mobile-menu-overlay .nav-preorder-button:hover {
+        background-color: #ddd;
+        transform: translateY(-5px) scale(1.05); /* Match hover effect */
+        color: black !important;
+      }
+
 
       /* Close button for mobile menu */
       .mobile-menu-close {
@@ -220,7 +248,7 @@
         transition: transform 0.3s ease; /* For close button animation */
       }
       .mobile-menu-close:hover {
-        transform: rotate(90deg);
+        transform: rotate(90deg) scale(1.1); /* Rotate and slight scale on hover */
       }
 
       /* Model Canvas Styles */
