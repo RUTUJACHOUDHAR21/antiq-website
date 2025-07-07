@@ -337,7 +337,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2rem;
+        font-size: 2rem; /* Default font size */
         opacity: 1;
         z-index: 1000;
         will-change: opacity, transform; /* Added transform for GSAP */
@@ -1012,6 +1012,15 @@
 
         .ion-title {
           font-size: 3rem;
+        }
+
+        .ion-headline {
+          font-size: 1rem;
+        }
+
+        /* Adjust font size for intro text on mobile */
+        .intro .intro-text {
+          font-size: 1.5rem; /* Smaller font size for mobile intro text */
         }
 
         .section-title {
