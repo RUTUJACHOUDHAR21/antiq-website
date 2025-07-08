@@ -997,25 +997,32 @@
             );
             gsap.fromTo(
               mobileNavLinks,
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.3, stagger: 0.05, ease: "power2.out", delay: 0.2 }
+              // Enhanced animation: slide in from left and slightly further down
+              { opacity: 0, y: 30, x: -20 },
+              { opacity: 1, y: 0, x: 0, duration: 0.3, stagger: 0.05, ease: "power2.out", delay: 0.2 }
             );
             gsap.fromTo(
               mobilePreorderButton,
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.3, delay: 0.4, ease: "power2.out" }
+              // Enhanced animation: slide in from left and slightly further down
+              { opacity: 0, y: 30, x: -20 },
+              { opacity: 1, y: 0, x: 0, duration: 0.3, delay: 0.4, ease: "power2.out" }
             );
           });
         }
 
         if (mobileMenuClose) {
           mobileMenuClose.addEventListener("click", () => {
-            gsap.to(mobileNavLinks, { opacity: 0, y: 20, duration: 0.2, stagger: 0.05, ease: "power2.in" });
-            gsap.to(mobilePreorderButton, { opacity: 0, y: 20, duration: 0.2, ease: "power2.in", onComplete: () => {
-              // Animate overlay back to top after links fade
-              gsap.to(mobileMenuOverlay, { y: "-100%", opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => {
-                mobileMenuOverlay.classList.remove("active");
-              }});
+            gsap.to(mobileNavLinks, {
+              // Enhanced animation: slide out to left and slightly further down
+              opacity: 0, y: 30, x: -20, duration: 0.2, stagger: 0.05, ease: "power2.in"
+            });
+            gsap.to(mobilePreorderButton, {
+              // Enhanced animation: slide out to left and slightly further down
+              opacity: 0, y: 30, x: -20, duration: 0.2, ease: "power2.in", onComplete: () => {
+                // Animate overlay back to top after links fade
+                gsap.to(mobileMenuOverlay, { y: "-100%", opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => {
+                  mobileMenuOverlay.classList.remove("active");
+                }});
             }});
           });
         }
@@ -1023,12 +1030,17 @@
         // Close mobile menu when a link inside it is clicked
         mobileNavLinks.forEach((link) => {
           link.addEventListener("click", () => {
-            gsap.to(mobileNavLinks, { opacity: 0, y: 20, duration: 0.2, stagger: 0.05, ease: "power2.in" });
-            gsap.to(mobilePreorderButton, { opacity: 0, y: 20, duration: 0.2, ease: "power2.in", onComplete: () => {
-              // Animate overlay back to top after links fade
-              gsap.to(mobileMenuOverlay, { y: "-100%", opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => {
-                mobileMenuOverlay.classList.remove("active");
-              }});
+            gsap.to(mobileNavLinks, {
+              // Enhanced animation: slide out to left and slightly further down
+              opacity: 0, y: 30, x: -20, duration: 0.2, stagger: 0.05, ease: "power2.in"
+            });
+            gsap.to(mobilePreorderButton, {
+              // Enhanced animation: slide out to left and slightly further down
+              opacity: 0, y: 30, x: -20, duration: 0.2, ease: "power2.in", onComplete: () => {
+                // Animate overlay back to top after links fade
+                gsap.to(mobileMenuOverlay, { y: "-100%", opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => {
+                  mobileMenuOverlay.classList.remove("active");
+                }});
             }});
           });
         });
