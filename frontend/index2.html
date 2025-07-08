@@ -422,7 +422,7 @@
         width: 100%;
         padding: 1rem 2rem;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-between; /* Default for desktop */
         align-items: center;
         z-index: 100;
         background: rgba(11, 10, 10, 0.5);
@@ -517,6 +517,9 @@
         }
         .main-nav {
           padding: 0.7rem 1rem;
+          /* Adjust these lines to bring logo and hamburger closer */
+          justify-content: flex-start; /* Align items to the start */
+          gap: 1rem; /* Add a gap between the logo and hamburger */
         }
 
         .main-nav .nav-items-desktop {
