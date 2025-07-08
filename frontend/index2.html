@@ -517,7 +517,8 @@
         }
         .main-nav {
           padding: 0.5rem 0.75rem; /* Reduced horizontal padding for tighter look */
-          justify-content: space-between; /* Keep logo and hamburger at ends */
+          justify-content: flex-start; /* Align logo and hamburger to the start */
+          gap: 0.5rem; /* Small gap between logo and hamburger */
         }
         .main-nav .text-2xl { /* Targeting the ANTIQ logo font size */
           font-size: 1.75rem; /* Slightly smaller logo font size */
@@ -536,6 +537,7 @@
           text-align: center;
           align-items: center;
           /* Ensure full width on mobile */
+          width: 100%; /* Explicitly set to 100% */
           max-width: 100%;
           margin-left: auto;
           margin-right: auto;
@@ -569,6 +571,7 @@
         .feature-highlights {
           grid-template-columns: 1fr; /* Stack features on mobile */
           text-align: center;
+          width: 100%; /* Explicitly set to 100% */
           max-width: 100%; /* Ensure full width on mobile */
           margin-left: auto;
           margin-right: auto;
@@ -585,7 +588,7 @@
 
 
         .player-box-custom {
-          width: 95%; /* Adjust player width for mobile */
+          width: 100%; /* Adjusted player width to 100% for mobile */
           height: 220px; /* Adjust player height for mobile */
           padding: 1rem; /* Reduced padding for player box */
           margin-top: 1.5rem; /* Reduced top margin */
@@ -633,6 +636,7 @@
         .player-box-custom {
             height: 180px; /* Even smaller player height */
             padding: 0.8rem;
+            width: 100%; /* Ensure 100% width on very small mobile */
         }
         .player-control-circle {
             width: 20px;
