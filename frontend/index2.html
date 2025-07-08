@@ -20,7 +20,8 @@
       body {
         font-family: "Inter", sans-serif;
         margin: 0;
-        padding-top: 96px; /* Added padding to ensure content clears fixed nav bar on desktop */
+        /* Adjusted padding to ensure content clears fixed nav bar on desktop and mobile */
+        padding-top: 96px;
         overflow-x: hidden; /* Prevent horizontal scrolling */
         background-color: rgb(11, 11, 11); /* Dark background */
         color: white; /* Default text color */
@@ -525,6 +526,10 @@
         .hero-content {
           text-align: center;
           align-items: center;
+          /* Ensure full width on mobile */
+          max-width: 100%;
+          margin-left: auto;
+          margin-right: auto;
         }
 
         .hero-content h1 {
@@ -539,6 +544,7 @@
           flex-direction: column;
           align-items: center;
           gap: 1rem;
+          width: 100%; /* Ensure buttons take full width */
         }
 
         .cta-buttons button {
@@ -549,11 +555,15 @@
         .feature-highlights {
           grid-template-columns: 1fr; /* Stack features on mobile */
           text-align: center;
+          max-width: 100%; /* Ensure full width on mobile */
+          margin-left: auto;
+          margin-right: auto;
         }
 
         .player-box-custom {
           width: 90%; /* Adjust player width for mobile */
           height: 250px; /* Adjust player height for mobile */
+          margin-top: 2rem; /* Add some space between sections on mobile */
         }
 
         .bottom-text {
@@ -630,10 +640,11 @@
     </div>
 
     <!-- Main Content Area -->
-    <div class="flex flex-col w-full">
+    <!-- Changed flex-row to flex-col for mobile, then md:flex-row for desktop -->
+    <div class="flex flex-col md:flex-row w-full">
       <!-- Left Section: Dark background with content -->
       <div
-        class="p-6 md:p-12 lg:p-20 flex flex-col justify-between relative z-10"
+        class="p-6 md:p-12 lg:p-20 flex flex-col justify-between relative z-10 w-full md:w-1/2"
       >
         <!-- Hero Content -->
         <main
@@ -694,7 +705,7 @@
 
       <!-- Right Section: Music Player UI -->
       <div
-        class="p-6 md:p-12 lg:p-12 flex items-center justify-center relative z-10"
+        class="p-6 md:p-12 lg:p-12 flex items-center justify-center relative z-10 w-full md:w-1/2"
       >
         <!-- Custom player box with refined styling -->
         <div
