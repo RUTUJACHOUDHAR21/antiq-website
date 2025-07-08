@@ -182,17 +182,16 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        opacity: 0;
-        transform: translateX(100%);
-        transition: opacity 0.4s ease-out, transform 0.4s ease-out; /* Smoother transition for overlay */
+        /* Removed opacity and transform for initial debugging */
+        /* transition: none; */ /* No transition for now */
       }
 
       .mobile-menu-overlay.active {
         display: flex;
-        opacity: 1;
-        transform: translateX(0);
+        /* Removed opacity and transform for initial debugging */
       }
 
+      /* Mobile menu links will always be vertical due to flex-direction: column on .mobile-menu-overlay .nav-links */
       .mobile-menu-overlay .nav-links {
         flex-direction: column;
         gap: 2rem;
@@ -1177,13 +1176,12 @@
       <button class="mobile-menu-close" id="mobileMenuClose">×</button>
       <div class="nav-links">
         <a href="#home" class="nav-link active" data-section="home">HOME</a>
-        <a href="#about" class="nav-link" data-section="about">ABOUT</a>
         <a href="#menu" class="nav-link" data-section="menu">PRODUCTS</a>
+        <a href="#about" class="nav-link" data-section="about">ABOUT</a>
         <a href="#services" class="nav-link" data-section="services"
           >SERVICES</a
         >
         <a href="#contact" class="nav-link" data-section="contact">CONTACT</a>
-        <!-- Changed to nav-link class -->
         <a href="index2.html" class="nav-link nav-preorder-button">PREORDER</a>
       </div>
     </div>
@@ -2364,6 +2362,7 @@
         if (hamburgerMenu) {
           hamburgerMenu.addEventListener("click", () => {
             mobileMenuOverlay.classList.add("active");
+            console.log("Mobile menu active class added:", mobileMenuOverlay.classList.contains("active")); // Debug log
             mainNav.classList.add("menu-open"); // Add class to main-nav
             // Animate icon to 'times'
             gsap.to(hamburgerIcon, {
