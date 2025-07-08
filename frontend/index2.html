@@ -455,7 +455,8 @@
         align-items: center;
         justify-content: center;
         opacity: 0;
-        transform: translateX(100%);
+        /* Changed from translateX to translateY for top-down animation */
+        transform: translateY(-100%);
         transition: opacity 0.4s ease-out, transform 0.4s ease-out;
         box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -464,7 +465,8 @@
       .mobile-menu-overlay.active {
         display: flex;
         opacity: 1;
-        transform: translateX(0);
+        /* Changed from translateX to translateY for top-down animation */
+        transform: translateY(0);
       }
 
       .mobile-menu-overlay .nav-links {
@@ -985,15 +987,21 @@
         if (hamburgerMenu) {
           hamburgerMenu.addEventListener("click", () => {
             mobileMenuOverlay.classList.add("active");
+            // Animate overlay from top
+            gsap.fromTo(
+              mobileMenuOverlay,
+              { y: "-100%", opacity: 0 },
+              { y: "0%", opacity: 1, duration: 0.4, ease: "power2.out" }
+            );
             gsap.fromTo(
               mobileNavLinks,
               { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.3, stagger: 0.05, ease: "power2.out" }
+              { opacity: 1, y: 0, duration: 0.3, stagger: 0.05, ease: "power2.out", delay: 0.2 }
             );
             gsap.fromTo(
               mobilePreorderButton,
               { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.3, delay: 0.2, ease: "power2.out" }
+              { opacity: 1, y: 0, duration: 0.3, delay: 0.4, ease: "power2.out" }
             );
           });
         }
@@ -1002,7 +1010,10 @@
           mobileMenuClose.addEventListener("click", () => {
             gsap.to(mobileNavLinks, { opacity: 0, y: 20, duration: 0.2, stagger: 0.05, ease: "power2.in" });
             gsap.to(mobilePreorderButton, { opacity: 0, y: 20, duration: 0.2, ease: "power2.in", onComplete: () => {
-              mobileMenuOverlay.classList.remove("active");
+              // Animate overlay back to top after links fade
+              gsap.to(mobileMenuOverlay, { y: "-100%", opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => {
+                mobileMenuOverlay.classList.remove("active");
+              }});
             }});
           });
         }
@@ -1012,7 +1023,10 @@
           link.addEventListener("click", () => {
             gsap.to(mobileNavLinks, { opacity: 0, y: 20, duration: 0.2, stagger: 0.05, ease: "power2.in" });
             gsap.to(mobilePreorderButton, { opacity: 0, y: 20, duration: 0.2, ease: "power2.in", onComplete: () => {
-              mobileMenuOverlay.classList.remove("active");
+              // Animate overlay back to top after links fade
+              gsap.to(mobileMenuOverlay, { y: "-100%", opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => {
+                mobileMenuOverlay.classList.remove("active");
+              }});
             }});
           });
         });
