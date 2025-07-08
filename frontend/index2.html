@@ -516,10 +516,8 @@
           padding-top: 72px; /* Adjusted padding for mobile view to clear fixed nav bar */
         }
         .main-nav {
-          padding: 0.7rem 1rem;
-          /* Adjust these lines to bring logo and hamburger closer */
-          justify-content: flex-start; /* Align items to the start */
-          gap: 1rem; /* Add a gap between the logo and hamburger */
+          padding: 0.7rem 0.75rem; /* Reduced horizontal padding for tighter look */
+          justify-content: space-between; /* Keep logo and hamburger at ends */
         }
 
         .main-nav .nav-items-desktop {
@@ -826,10 +824,6 @@
                         <div class="form-group">
                             <label for="phoneNumber">Phone Number</label>
                             <input type="tel" id="phoneNumber" name="phone" />
-                        </div>
-                        <div class="form-group">
-                            <label for="shippingAddress">Shipping Address</label>
-                            <textarea id="shippingAddress" name="address" rows="3" required></textarea>
                         </div>
                         <div class="form-group">
                             <label>Select Model</label>
