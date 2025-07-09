@@ -446,10 +446,10 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 100vw; /* Explicitly use viewport width */
-        height: 100vh; /* Explicitly use viewport height */
-        /* Changed background to solid black, now slightly transparent */
-        background: rgba(0, 0, 0, 0.9);
+        width: 100%;
+        height: 100%;
+        /* Changed background to solid black */
+        background: #000000;
         backdrop-filter: blur(15px);
         z-index: 99;
         flex-direction: column;
@@ -594,39 +594,17 @@
           width: 100%; /* Adjusted player width to 100% for mobile */
           height: 180px; /* Adjust player height for mobile */
           padding: 0.7rem; /* Reduced padding for player box */
-          margin-top: 1.2rem; /* Reduced top margin */
+          margin-top: 1.2rem; /* Reduced top top margin */
         }
 
         .bottom-text {
           font-size: 1.6rem; /* Adjust bottom text size for mobile */
         }
-
-        .popup {
-          width: 100%; /* Take full width */
-          height: 100%; /* Take full height */
-          max-width: none; /* Remove max-width constraint */
-          max-height: none; /* Remove max-height constraint */
-          border-radius: 0; /* No rounded corners for full screen */
-          padding: 1rem; /* Adjust padding as needed */
-          display: flex; /* Use flex to center content inside */
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-        .preorder-form-popup {
-          max-height: none; /* Allow form to take full height if needed */
-          padding-right: 0; /* No scrollbar padding for full screen */
-        }
-        .popup .close {
-          top: 0.5rem; /* Adjust close button position */
-          right: 0.5rem;
-          font-size: 2rem; /* Make close button larger */
-        }
       }
 
       @media (max-width: 480px) {
         .hero-content h1 {
-          font-size: 1.4rem; /* Even smaller font size for very small screens to fit on one line */
+          font-size: 1.1rem; /* Even smaller font size for very small screens to fit on one line */
         }
         .hero-content p {
           font-size: 0.7rem; /* Even smaller font size for very small screens */
@@ -635,13 +613,13 @@
           font-size: 1.1rem; /* Even smaller bottom text for very small screens */
         }
         .main-nav {
-            padding: 0.2rem 0.3rem; /* Even smaller padding for nav bar */
+            padding: 0.15rem 0.2rem; /* Even smaller padding for nav bar */
         }
         .main-nav .text-2xl {
             font-size: 1.2rem; /* Even smaller logo font size */
         }
         .hamburger-menu {
-            font-size: 1rem; /* Even smaller hamburger icon */
+            font-size: 0.9rem; /* Even smaller hamburger icon */
         }
         .mobile-menu-close {
             font-size: 1.2rem; /* Even smaller close button */
@@ -733,7 +711,6 @@
     </div>
 
     <!-- Main Content Area -->
-    <!-- Consolidated into a single vertical layout for all screen sizes -->
     <div class="flex flex-col w-full">
       <!-- Left Section: Dark background with content -->
       <div
@@ -742,7 +719,7 @@
       >
         <!-- Hero Content -->
         <main
-          class="flex-grow flex flex-col justify-center items-center text-center max-w-xl md:mx-auto hero-content"
+          class="flex-grow flex flex-col justify-center items-center text-center max-w-xl mx-auto hero-content"
         >
           <h1
             class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
@@ -777,7 +754,7 @@
 
         <!-- Feature Highlights -->
         <div
-          class="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-auto mb-10 max-w-xl md:mx-auto feature-highlights"
+          class="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-auto mb-10 max-w-xl mx-auto feature-highlights"
         >
           <div class="text-center sm:text-left fade-in-element">
             <h3 class="text-white text-3xl font-bold rounded-md">24bit</h3>
@@ -866,11 +843,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
     <script>
-      // Register ScrollTrigger plugin
-      gsap.registerPlugin(ScrollTrigger);
-
       // Product data for the preorder form
       const products = [
         { id: "classic", name: "ANTIQ Classic", price: "$899" },
@@ -1014,11 +987,8 @@
         const ctaButtons = document.querySelector(".cta-buttons");
         const featureElements = document.querySelectorAll(".fade-in-element");
         const bottomText = document.querySelector(".bottom-text");
-        const leftSection = document.getElementById("left-section");
-        const rightSection = document.getElementById("right-section");
 
-
-        // Initial Hero section animations (already present)
+        // Hero section animations
         gsap.from(heroHeadline, {
           opacity: 0,
           y: 50,
@@ -1042,7 +1012,7 @@
           delay: 0.9,
         });
 
-        // Feature highlights fade-in on scroll (already present)
+        // Feature highlights fade-in on scroll (if not already visible)
         featureElements.forEach((el) => {
           gsap.from(el, {
             opacity: 0,
@@ -1057,34 +1027,7 @@
           });
         });
 
-        // New: Fade-in effect for the left section (hero content and features) on scroll
-        gsap.from(leftSection, {
-          opacity: 0,
-          y: 50,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: leftSection,
-            start: "top 80%", // Start animation when 80% of the section is visible
-            toggleActions: "play none none none",
-          },
-        });
-
-        // New: Fade-in effect for the right section (music player) on scroll
-        gsap.from(rightSection, {
-          opacity: 0,
-          y: 50,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: rightSection,
-            start: "top 80%", // Start animation when 80% of the section is visible
-            toggleActions: "play none none none",
-          },
-        });
-
-
-        // Bottom text animation (already present)
+        // Bottom text animation
         gsap.from(bottomText, {
           opacity: 0,
           scale: 0.8,
@@ -1093,7 +1036,7 @@
           delay: 1.5,
         });
 
-        // Mobile menu toggle logic (already present)
+        // Mobile menu toggle logic
         const hamburgerMenu = document.getElementById("hamburgerMenu");
         const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
         const mobileMenuClose = document.getElementById("mobileMenuClose");
