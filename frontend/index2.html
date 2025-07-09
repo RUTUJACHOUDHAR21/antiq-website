@@ -599,9 +599,25 @@
         }
 
         .popup {
-          max-width: 95%; /* Make popup wider on mobile */
-          width: 95%;
-          padding: 1.5rem; /* Adjust padding for mobile popup */
+          width: 100%; /* Take full width */
+          height: 100%; /* Take full height */
+          max-width: none; /* Remove max-width constraint */
+          max-height: none; /* Remove max-height constraint */
+          border-radius: 0; /* No rounded corners for full screen */
+          padding: 1rem; /* Adjust padding as needed */
+          display: flex; /* Use flex to center content inside */
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+        .preorder-form-popup {
+          max-height: none; /* Allow form to take full height if needed */
+          padding-right: 0; /* No scrollbar padding for full screen */
+        }
+        .popup .close {
+          top: 0.5rem; /* Adjust close button position */
+          right: 0.5rem;
+          font-size: 2rem; /* Make close button larger */
         }
       }
 
@@ -714,11 +730,11 @@
     </div>
 
     <!-- Main Content Area -->
-    <!-- Changed flex-row to flex-col for mobile, then md:flex-row for desktop -->
-    <div class="flex flex-col md:flex-row w-full">
+    <!-- Consolidated into a single vertical layout for all screen sizes -->
+    <div class="flex flex-col w-full">
       <!-- Left Section: Dark background with content -->
       <div
-        class="p-6 md:p-12 lg:p-20 flex flex-col justify-between relative z-10 w-full md:w-1/2"
+        class="p-6 md:p-12 lg:p-20 flex flex-col justify-between relative z-10 w-full"
         id="left-section"
       >
         <!-- Hero Content -->
@@ -780,7 +796,7 @@
 
       <!-- Right Section: Music Player UI -->
       <div
-        class="p-6 md:p-12 lg:p-12 flex items-center justify-center relative z-10 w-full md:w-1/2"
+        class="p-6 md:p-12 lg:p-12 flex items-center justify-center relative z-10 w-full"
         id="right-section"
       >
         <!-- Custom player box with refined styling -->
