@@ -148,7 +148,7 @@
       }
 
       .popup {
-        background: rgba(20, 20, 20, 0.7);
+        background: #000000; /* Solid black background for popup */
         padding: 2rem;
         border-radius: 15px;
         max-width: 500px;
@@ -218,17 +218,17 @@
       }
 
       .preorder-form-popup::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.1); /* Lighter track */
         border-radius: 4px;
       }
 
       .preorder-form-popup::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.3); /* White thumb */
         border-radius: 4px;
       }
 
       .preorder-form-popup::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.25);
+        background: rgba(255, 255, 255, 0.5); /* Lighter on hover */
       }
 
       .preorder-form-popup .form-group {
@@ -240,7 +240,7 @@
 
       .preorder-form-popup label {
         display: block;
-        color: rgba(255, 255, 255, 0.9);
+        color: white; /* White label text */
         font-size: 1.05rem;
         margin-bottom: 0.6rem;
         font-weight: 500;
@@ -253,11 +253,11 @@
       .preorder-form-popup input[type="tel"],
       .preorder-form-popup textarea,
       .preorder-form-popup select {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: #333333; /* Dark gray background for inputs */
+        border: 1px solid #555555; /* Slightly lighter gray border */
         padding: 1.1rem;
         border-radius: 8px;
-        color: white;
+        color: white; /* White text in inputs */
         font-family: "Inter", sans-serif;
         font-size: 1rem;
         transition: all 0.3s ease;
@@ -280,7 +280,7 @@
 
       /* Style for options within the select dropdown */
       .preorder-form-popup select option {
-        background-color: rgb(20, 20, 20);
+        background-color: #333333; /* Dark background for options */
         color: white;
       }
 
@@ -289,15 +289,15 @@
       .preorder-form-popup input[type="tel"]:focus,
       .preorder-form-popup textarea:focus,
       .preorder-form-popup select:focus {
-        background: rgba(255, 255, 255, 0.15);
-        border-color: rgba(255, 255, 255, 0.5);
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+        background: #444444; /* Slightly lighter gray on focus */
+        border-color: white; /* White border on focus */
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.4); /* White glow on focus */
         outline: none;
       }
 
       .preorder-form-popup .submit-btn {
-        background: white;
-        color: black;
+        background: white; /* White button background */
+        color: black; /* Black text */
         padding: 1.3rem;
         border-radius: 30px;
         font-size: 1.15rem;
@@ -305,10 +305,11 @@
         letter-spacing: 0.05em;
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
         transition: all 0.3s ease;
+        border: none; /* No border for the button */
       }
 
       .preorder-form-popup .submit-btn:hover {
-        background: #ddd;
+        background: #e0e0e0; /* Slightly darker white on hover */
         transform: translateY(-4px) scale(1.03);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
       }
@@ -326,7 +327,7 @@
         display: flex;
         align-items: center;
         cursor: pointer;
-        color: rgba(255, 255, 255, 0.8);
+        color: white; /* White text for radio options */
         font-size: 1rem;
       }
 
@@ -336,7 +337,7 @@
         appearance: none;
         width: 18px;
         height: 18px;
-        border: 2px solid rgba(255, 255, 255, 0.5);
+        border: 2px solid #aaaaaa; /* Light gray border */
         border-radius: 50%;
         margin-right: 0.8rem;
         position: relative;
@@ -347,15 +348,15 @@
       }
 
       .radio-option input[type="radio"]:checked {
-        background-color: white;
-        border-color: white;
+        background-color: white; /* White fill when checked */
+        border-color: white; /* White border when checked */
       }
 
       .radio-option input[type="radio"]:checked::before {
         content: "";
         width: 8px;
         height: 8px;
-        background-color: rgb(11, 11, 11);
+        background-color: #000000; /* Black inner circle */
         border-radius: 50%;
         position: absolute;
         top: 50%;
@@ -364,7 +365,7 @@
       }
 
       .radio-option:hover input[type="radio"] {
-        border-color: white;
+        border-color: white; /* White border on hover */
       }
 
       /* Checkbox styles */
@@ -382,7 +383,7 @@
         appearance: none;
         width: 20px;
         height: 20px;
-        border: 2px solid rgba(255, 255, 255, 0.5);
+        border: 2px solid #aaaaaa; /* Light gray border */
         border-radius: 4px;
         margin-right: 0.8rem;
         position: relative;
@@ -393,14 +394,14 @@
       }
 
       .checkbox-group input[type="checkbox"]:checked {
-        background-color: white;
-        border-color: white;
+        background-color: white; /* White fill when checked */
+        border-color: white; /* White border when checked */
       }
 
       .checkbox-group input[type="checkbox"]:checked::before {
         content: "✔";
         font-size: 14px;
-        color: rgb(11, 11, 11);
+        color: #000000; /* Black checkmark */
         position: absolute;
         top: 50%;
         left: 50%;
@@ -409,7 +410,7 @@
       }
 
       .checkbox-group label {
-        color: rgba(255, 255, 255, 0.8);
+        color: white; /* White text for checkbox label */
         font-size: 0.95rem;
         cursor: pointer;
       }
