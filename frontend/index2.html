@@ -518,7 +518,7 @@
         .main-nav {
           padding: 0.4rem 0.6rem; /* Reduced horizontal padding for tighter look */
           justify-content: flex-start; /* Align logo and hamburger to the start */
-          gap: 0.4rem; /* Small gap between logo and hamburger */
+          gap: 0.2rem; /* Reduced gap for logo and hamburger */
         }
         .main-nav .text-2xl { /* Targeting the ANTIQ logo font size */
           font-size: 1.5rem; /* Slightly smaller logo font size */
@@ -547,6 +547,9 @@
         .hero-content h1 {
           font-size: 2.2rem; /* Further adjust font size for mobile */
           margin-bottom: 0.6rem; /* Reduced margin */
+          white-space: nowrap; /* Prevent text from wrapping */
+          overflow: hidden; /* Hide overflow text */
+          text-overflow: ellipsis; /* Add ellipsis for overflow text */
         }
 
         .hero-content p {
@@ -623,7 +626,7 @@
 
       @media (max-width: 480px) {
         .hero-content h1 {
-          font-size: 1.8rem; /* Even smaller font size for very small screens */
+          font-size: 1.4rem; /* Even smaller font size for very small screens to fit on one line */
         }
         .hero-content p {
           font-size: 0.7rem; /* Even smaller font size for very small screens */
@@ -745,8 +748,7 @@
             class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
             id="hero-headline"
           >
-            <span class="text-white">Future of</span> <br />
-            <span class="gradient-text">Music Experience</span>
+            <span class="text-white">Future of Music Experience</span>
           </h1>
           <p
             class="text-gray-300 text-lg md:text-xl mb-10 leading-relaxed"
