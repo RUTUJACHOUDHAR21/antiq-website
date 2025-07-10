@@ -1201,6 +1201,7 @@
           >SERVICES</a
         >
         <a href="#contact" class="nav-link" data-section="contact">CONTACT</a>
+        <!-- NEW PREORDER BUTTON FOR MOBILE MENU -->
         <a href="index2.html" class="nav-link nav-preorder-button">PREORDER NOW</a>
       </div>
     </div>
@@ -2331,6 +2332,36 @@
               );
             }
           }
+        } else if (event.target.classList.contains('nav-preorder-button')) {
+            // If it's the preorder button, close mobile menu and navigate
+            const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
+            if (mobileMenuOverlay.classList.contains("active")) {
+                gsap.to(mobileNavLinks,
+                    {
+                        opacity: 0,
+                        y: 20,
+                        duration: 0.3,
+                        stagger: 0.05,
+                        ease: "power2.in",
+                        onComplete: () => {
+                            mobileMenuOverlay.classList.remove("active");
+                            mainNav.classList.remove("menu-open");
+                            gsap.to(hamburgerIcon, {
+                                rotation: 180,
+                                opacity: 0,
+                                duration: 0.2,
+                                onComplete: () => {
+                                    hamburgerIcon.classList.remove('fa-times');
+                                    hamburgerIcon.classList.add('fa-bars');
+                                    gsap.fromTo(hamburgerIcon, { rotation: -180, opacity: 0 }, { rotation: 0, opacity: 1, duration: 0.2 });
+                                }
+                            });
+                            window.location.href = event.target.getAttribute("href"); // Navigate after closing animation
+                        }
+                    }
+                );
+                event.preventDefault(); // Prevent immediate navigation
+            }
         }
       }
 
@@ -2400,9 +2431,9 @@
           )
           .to(ionHeadline, { opacity: 0.85, y: 0, duration: 0.8 }, "<0.2");
 
-        // Attach handleNavClick only to internal navigation links (those starting with #)
+        // Attach handleNavClick to all navigation links, including the preorder button
         document
-          .querySelectorAll(".main-nav .nav-links .nav-link[href^='#']")
+          .querySelectorAll(".main-nav .nav-links .nav-link, .mobile-menu-overlay .nav-links .nav-link")
           .forEach((link) => {
             link.addEventListener("click", handleNavClick);
           });
@@ -2467,15 +2498,6 @@
             });
           });
         }
-
-        // Close mobile menu when an internal link inside it is clicked
-        document
-          .querySelectorAll(
-            ".mobile-menu-overlay .nav-links .nav-link[href^='#']"
-          )
-          .forEach((link) => {
-            link.addEventListener("click", handleNavClick); // Re-use handleNavClick
-          });
 
         const contactForm = document.getElementById("contactForm");
         if (contactForm) {
