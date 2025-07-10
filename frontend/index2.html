@@ -450,7 +450,8 @@
         position: absolute; /* Changed to absolute */
         top: 100%; /* Position below the nav bar */
         right: 0; /* Align to the right of the nav bar */
-        width: max-content; /* Fit content horizontally */
+        width: max-content; /* Fit content horizontally based on widest child */
+        min-width: 160px; /* Give it a reasonable minimum width */
         height: auto; /* Fit content vertically */
         padding: 1rem; /* Add some padding around the menu items */
         background: rgba(0, 0, 0, 0.9); /* Blackish background */
@@ -459,7 +460,7 @@
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow */
         z-index: 99;
         flex-direction: column;
-        align-items: flex-end; /* Align items to the right within this dropdown */
+        align-items: center; /* Center items horizontally within the dropdown */
         justify-content: flex-start; /* Align content to the top */
         opacity: 0;
         transform: translateY(-10px); /* Start slightly above its final position */
@@ -473,10 +474,11 @@
       }
 
       .mobile-menu-overlay .nav-links {
+        display: flex; /* Ensure flexbox for vertical layout */
         flex-direction: column; /* Ensure vertical layout */
         gap: 0.8rem; /* Further reduced gap for mobile menu links */
         margin-right: 0; /* No right margin needed for vertical list */
-        align-items: flex-end; /* Align links to the right within the dropdown */
+        align-items: stretch; /* Make children fill the width of this container */
       }
 
       .mobile-menu-overlay .nav-link {
@@ -484,7 +486,7 @@
         padding: 0.6rem 1rem; /* Reduced padding for mobile menu links */
         border-radius: 10px;
         text-align: center;
-        width: fit-content;
+        width: 100%; /* Make links take full width of the parent (nav-links) */
         opacity: 0; /* For staggered animation */
         transform: translateY(20px); /* For staggered animation */
         transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
@@ -495,6 +497,12 @@
         background-color: rgba(255, 255, 255, 0.1);
         transform: translateY(-5px) scale(1.05);
         color: #fff;
+      }
+
+      .mobile-menu-overlay .bg-white { /* Targeting the button specifically */
+        width: 100%; /* Make the button take full width */
+        text-align: center; /* Center text within the button */
+        box-sizing: border-box; /* Include padding/border in width */
       }
 
       .mobile-menu-close {
