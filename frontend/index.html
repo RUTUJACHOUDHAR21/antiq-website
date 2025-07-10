@@ -188,8 +188,8 @@
         left: 0; /* Cover entire viewport */
         width: 100vw; /* Full viewport width */
         height: 100vh; /* Full viewport height */
-        padding: 1rem; /* Adjusted padding for mobile menu */
-        background: rgba(11, 10, 10, 0.1); /* Made background more transparent */
+        padding: 0.5rem; /* Reduced padding for mobile menu */
+        background: rgba(0, 0, 0, 0); /* Made background fully transparent */
         backdrop-filter: blur(15px); /* More blur for full-screen effect */
         border-radius: 0; /* Remove border-radius for full screen */
         box-shadow: none; /* Remove shadow for full screen */
@@ -212,14 +212,14 @@
       .mobile-menu-overlay .nav-links {
         display: flex; /* Ensure flexbox for vertical layout */
         flex-direction: column; /* Ensure vertical layout */
-        gap: 0.8rem; /* Further reduced gap for mobile menu links */
+        gap: 0.5rem; /* Further reduced gap for mobile menu links */
         margin-right: 0; /* No right margin needed for vertical list */
         align-items: stretch; /* Make children fill the width of this container */
       }
 
       .mobile-menu-overlay .nav-link {
         font-size: 1.3rem;
-        padding: 0.6rem 1rem; /* Increased padding for better tap target */
+        padding: 0.4rem 0.8rem; /* Reduced padding for better tap target */
         border-radius: 10px; /* Rounded corners for menu items */
         text-align: center;
         width: 100%; /* Make links take full width of the parent (nav-links) */
@@ -238,21 +238,21 @@
 
       /* Specific style for the Preorder button in mobile menu */
       .mobile-menu-overlay .nav-preorder-button { /* TARGETING THIS CLASS */
-        width: 100%; /* Make the button take full width */
-        text-align: center; /* Center text within the button */
-        box-sizing: border-box; /* Include padding/border in width */
-        background-color: white; /* Ensure background is white */
-        color: black !important; /* Ensure text is black */
-        padding: 0.8rem 2rem; /* Match other button padding */
-        border-radius: 30px; /* Match other button border-radius */
-        font-weight: bold; /* Match other button font-weight */
-        margin-top: 1rem; /* Add some space from other links */
+        background-color: transparent; /* Make background transparent by default */
+        color: white !important; /* Ensure text is white by default */
+        padding: 0.4rem 0.8rem; /* Match other nav-link padding */
+        border-radius: 10px; /* Match other nav-link border-radius */
+        font-weight: bold;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        will-change: transform, background, color;
+        margin-top: 0.5rem; /* Reduced margin-top */
       }
 
       .mobile-menu-overlay .nav-preorder-button:hover {
-        background-color: #ddd;
+        background-color: white; /* White background on hover */
+        color: black !important; /* Black text on hover */
         transform: translateY(-5px) scale(1.05); /* Match hover effect */
-        color: black !important;
       }
 
 
