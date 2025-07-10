@@ -189,8 +189,8 @@
         width: 100vw;
         height: 100vh;
         padding: 0; /* No padding on the overlay itself */
-        background: rgba(0, 0, 0, 0.6); /* Semi-transparent background for the overlay to dim content */
-        backdrop-filter: blur(5px); /* Less blur on the overlay, more on the menu itself */
+        background: transparent; /* Changed to transparent */
+        backdrop-filter: none; /* Removed backdrop-filter */
         border-radius: 0;
         box-shadow: none;
         z-index: 99;
@@ -252,23 +252,22 @@
 
       /* Specific style for the Preorder button in mobile menu */
       .mobile-menu-overlay .nav-preorder-button {
-        background-color: white; /* Make background white by default */
-        color: black !important; /* Ensure text is black by default */
-        padding: 0.8rem 1.5rem; /* More prominent padding for the button */
-        border-radius: 25px; /* More rounded for a button look */
+        background-color: transparent; /* Changed to transparent */
+        color: white !important; /* Changed to white */
+        padding: 0.6rem 1.2rem; /* Matched other nav-link padding */
+        border-radius: 8px; /* Matched other nav-link border-radius */
         font-weight: bold;
         text-decoration: none;
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         will-change: transform, background, color;
-        margin-top: 1rem; /* Space from other links */
-        width: auto; /* Let button content define width */
-        min-width: 150px; /* Ensure a minimum width for the button */
+        margin-top: 0.8rem; /* Matched nav-links gap */
+        width: auto; /* Removed min-width */
       }
 
       .mobile-menu-overlay .nav-preorder-button:hover {
-        background-color: #ddd; /* Lighter white on hover */
-        color: black !important; /* Keep text black on hover */
-        transform: translateY(-5px) scale(1.05); /* Match hover effect */
+        background-color: rgba(255, 255, 255, 0.15); /* Matched other nav-link hover */
+        color: white !important; /* Matched other nav-link hover */
+        transform: translateY(-3px) scale(1.02); /* Matched other nav-link hover effect */
       }
 
 
