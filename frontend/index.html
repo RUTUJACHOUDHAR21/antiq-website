@@ -183,46 +183,60 @@
       /* Mobile menu overlay */
       .mobile-menu-overlay {
         display: none; /* Hidden by default */
-        position: fixed; /* Changed to fixed */
-        top: 0; /* Cover entire viewport */
-        left: 0; /* Cover entire viewport */
-        width: 100vw; /* Full viewport width */
-        height: 100vh; /* Full viewport height */
-        padding: 0.5rem; /* Reduced padding for mobile menu */
-        background: rgba(0, 0, 0, 0); /* Made background fully transparent */
-        backdrop-filter: blur(15px); /* More blur for full-screen effect */
-        border-radius: 0; /* Remove border-radius for full screen */
-        box-shadow: none; /* Remove shadow for full screen */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        padding: 0; /* No padding on the overlay itself */
+        background: rgba(0, 0, 0, 0.6); /* Semi-transparent background for the overlay to dim content */
+        backdrop-filter: blur(5px); /* Less blur on the overlay, more on the menu itself */
+        border-radius: 0;
+        box-shadow: none;
         z-index: 99;
-        flex-direction: column;
-        align-items: center; /* Center items horizontally */
-        justify-content: center; /* Center items vertically */
+        flex-direction: column; /* Keep flex-direction for positioning the container */
+        align-items: flex-end; /* Align container to the right */
+        justify-content: flex-start; /* Align container to the top */
         opacity: 0;
-        transform: translateY(100%); /* Start from bottom, animate up */
+        transform: translateY(100%);
         transition: opacity 0.4s ease-out, transform 0.4s ease-out;
       }
 
       .mobile-menu-overlay.active {
         display: flex;
         opacity: 1;
-        transform: translateY(0); /* Animate to full screen */
+        transform: translateY(0);
       }
 
-      /* Mobile menu links will always be vertical due to flex-direction: column on .mobile-menu-overlay .nav-links */
+      /* New container for the mobile menu content */
+      .mobile-menu-container {
+        background: rgba(11, 10, 10, 0.9); /* Darker, more opaque background for the menu block */
+        backdrop-filter: blur(15px); /* Heavy blur for the menu block */
+        border-radius: 15px; /* Rounded corners for the menu block */
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); /* Shadow for the menu block */
+        padding: 1.5rem; /* Padding inside the menu block */
+        margin-top: 80px; /* Space from the top of the viewport, below the main nav */
+        margin-right: 1.5rem; /* Space from the right edge of the viewport */
+        width: auto; /* Let content define width */
+        max-width: 80%; /* Max width for the menu container */
+        box-sizing: border-box;
+      }
+
+      /* Mobile menu links will now be inside mobile-menu-container */
       .mobile-menu-overlay .nav-links {
-        display: flex; /* Ensure flexbox for vertical layout */
-        flex-direction: column; /* Ensure vertical layout */
-        gap: 0.5rem; /* Further reduced gap for mobile menu links */
-        margin-right: 0; /* No right margin needed for vertical list */
-        align-items: stretch; /* Make children fill the width of this container */
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem; /* Slightly increased gap for better spacing */
+        align-items: center; /* Center items within the menu block */
+        width: 100%; /* Take full width of its parent (mobile-menu-container) */
       }
 
       .mobile-menu-overlay .nav-link {
-        font-size: 1.3rem;
-        padding: 0.4rem 0.8rem; /* Reduced padding for better tap target */
-        border-radius: 10px; /* Rounded corners for menu items */
+        font-size: 1.2rem; /* Slightly smaller font for compactness */
+        padding: 0.6rem 1.2rem; /* Adjusted padding for links */
+        border-radius: 8px; /* Slightly less rounded for a more modern look */
         text-align: center;
-        width: 100%; /* Make links take full width of the parent (nav-links) */
+        width: auto; /* Let the link content define its width */
         /* Initial state for animation */
         opacity: 0;
         transform: translateY(20px);
@@ -231,46 +245,48 @@
 
       .mobile-menu-overlay .nav-link:hover,
       .mobile-menu-overlay .nav-link.active {
-        background-color: rgba(255, 255, 255, 0.1); /* Subtle background on hover/active */
-        transform: translateY(-5px) scale(1.05); /* Slight lift and scale */
+        background-color: rgba(255, 255, 255, 0.15); /* More visible background on hover/active */
+        transform: translateY(-3px) scale(1.02); /* Subtle lift and scale */
         color: #fff;
       }
 
       /* Specific style for the Preorder button in mobile menu */
-      .mobile-menu-overlay .nav-preorder-button { /* TARGETING THIS CLASS */
-        background-color: transparent; /* Make background transparent by default */
-        color: white !important; /* Ensure text is white by default */
-        padding: 0.4rem 0.8rem; /* Match other nav-link padding */
-        border-radius: 10px; /* Match other nav-link border-radius */
+      .mobile-menu-overlay .nav-preorder-button {
+        background-color: white; /* Make background white by default */
+        color: black !important; /* Ensure text is black by default */
+        padding: 0.8rem 1.5rem; /* More prominent padding for the button */
+        border-radius: 25px; /* More rounded for a button look */
         font-weight: bold;
         text-decoration: none;
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         will-change: transform, background, color;
-        margin-top: 0.5rem; /* Reduced margin-top */
+        margin-top: 1rem; /* Space from other links */
+        width: auto; /* Let button content define width */
+        min-width: 150px; /* Ensure a minimum width for the button */
       }
 
       .mobile-menu-overlay .nav-preorder-button:hover {
-        background-color: white; /* White background on hover */
-        color: black !important; /* Black text on hover */
+        background-color: #ddd; /* Lighter white on hover */
+        color: black !important; /* Keep text black on hover */
         transform: translateY(-5px) scale(1.05); /* Match hover effect */
       }
 
 
-      /* Close button for mobile menu */
+      /* Close button for mobile menu - position relative to the overlay */
       .mobile-menu-close {
         position: absolute;
-        top: 2rem; /* More space from top */
-        right: 2rem; /* More space from right */
-        font-size: 2rem; /* Larger close button for full screen */
+        top: 1rem; /* Closer to the top right corner */
+        right: 1rem; /* Closer to the top right corner */
+        font-size: 2rem;
         color: white;
         cursor: pointer;
         background: none;
         border: none;
         transition: transform 0.3s ease;
-        z-index: 100;
+        z-index: 100; /* Ensure it's above the menu container */
       }
       .mobile-menu-close:hover {
-        transform: rotate(90deg) scale(1.1); /* Rotate and slight scale on hover */
+        transform: rotate(90deg) scale(1.1);
       }
 
       /* Model Canvas Styles */
@@ -1193,16 +1209,18 @@
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobileMenuOverlay">
       <button class="mobile-menu-close" id="mobileMenuClose">×</button>
-      <div class="nav-links">
-        <a href="#home" class="nav-link" data-section="home">HOME</a>
-        <a href="#menu" class="nav-link" data-section="menu">PRODUCTS</a>
-        <a href="#about" class="nav-link" data-section="about">ABOUT</a>
-        <a href="#services" class="nav-link" data-section="services"
-          >SERVICES</a
-        >
-        <a href="#contact" class="nav-link" data-section="contact">CONTACT</a>
-        <!-- NEW PREORDER BUTTON FOR MOBILE MENU -->
-        <a href="index2.html" class="nav-link nav-preorder-button">PREORDER NOW</a>
+      <div class="mobile-menu-container">
+        <div class="nav-links">
+          <a href="#home" class="nav-link" data-section="home">HOME</a>
+          <a href="#menu" class="nav-link" data-section="menu">PRODUCTS</a>
+          <a href="#about" class="nav-link" data-section="about">ABOUT</a>
+          <a href="#services" class="nav-link" data-section="services"
+            >SERVICES</a
+          >
+          <a href="#contact" class="nav-link" data-section="contact">CONTACT</a>
+          <!-- NEW PREORDER BUTTON FOR MOBILE MENU -->
+          <a href="index2.html" class="nav-link nav-preorder-button">PREORDER NOW</a>
+        </div>
       </div>
     </div>
 
