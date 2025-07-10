@@ -183,30 +183,29 @@
       /* Mobile menu overlay */
       .mobile-menu-overlay {
         display: none; /* Hidden by default */
-        position: absolute; /* Changed to absolute */
-        top: 100%; /* Position below the nav bar */
-        right: 0; /* Align to the right of the nav bar */
-        width: max-content; /* Fit content horizontally based on widest child */
-        min-width: 160px; /* Give it a reasonable minimum width */
-        height: auto; /* Fit content vertically */
-        padding: 1rem; /* Add some padding around the menu items */
-        background: rgba(0, 0, 0, 0.9); /* Blackish background */
-        backdrop-filter: blur(5px); /* Subtle blur */
-        border-radius: 10px; /* Rounded corners for the dropdown */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+        position: fixed; /* Changed to fixed */
+        top: 0; /* Cover entire viewport */
+        left: 0; /* Cover entire viewport */
+        width: 100vw; /* Full viewport width */
+        height: 100vh; /* Full viewport height */
+        padding: 2rem; /* Increased padding for full-screen menu */
+        background: rgba(0, 0, 0, 0.95); /* Slightly less transparent */
+        backdrop-filter: blur(15px); /* More blur for full-screen effect */
+        border-radius: 0; /* Remove border-radius for full screen */
+        box-shadow: none; /* Remove shadow for full screen */
         z-index: 99;
         flex-direction: column;
-        align-items: center; /* Center items horizontally within the dropdown */
-        justify-content: flex-start; /* Align content to the top */
+        align-items: center; /* Center items horizontally */
+        justify-content: center; /* Center items vertically */
         opacity: 0;
-        transform: translateY(-10px); /* Start slightly above its final position */
-        transition: opacity 0.4s ease-out, transform 0.4s ease-out; /* Keep transition */
+        transform: translateY(100%); /* Start from bottom, animate up */
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
       }
 
       .mobile-menu-overlay.active {
         display: flex;
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0); /* Animate to full screen */
       }
 
       /* Mobile menu links will always be vertical due to flex-direction: column on .mobile-menu-overlay .nav-links */
@@ -260,15 +259,15 @@
       /* Close button for mobile menu */
       .mobile-menu-close {
         position: absolute;
-        top: 0.5rem; /* Adjusted position within the dropdown */
-        right: 0.5rem; /* Adjusted position within the dropdown */
-        font-size: 1.5rem; /* Slightly smaller close button for dropdown */
+        top: 2rem; /* More space from top */
+        right: 2rem; /* More space from right */
+        font-size: 2rem; /* Larger close button for full screen */
         color: white;
         cursor: pointer;
         background: none;
         border: none;
-        transition: transform 0.3s ease; /* For close button animation */
-        z-index: 100; /* Ensure close button is clickable */
+        transition: transform 0.3s ease;
+        z-index: 100;
       }
       .mobile-menu-close:hover {
         transform: rotate(90deg) scale(1.1); /* Rotate and slight scale on hover */
@@ -1527,6 +1526,11 @@
       let modelContinuousRotationY = 0;
       let modelScrollRotationY = 0;
 
+      // Global variables for mobile menu elements
+      let mobileNavLinks;
+      let hamburgerIcon;
+      let mainNav;
+
       /**
        * Initializes the Three.js scene, camera, renderer, and lights.
        * Appends the renderer's DOM element to the model-container.
@@ -2338,7 +2342,12 @@
         const ionContainer = document.querySelector(".ion-container");
         const antiqLetters = document.querySelectorAll(".antiq-letter");
         const ionHeadline = document.getElementById("ion-headline");
-        const mainNav = document.querySelector(".main-nav"); // Get main nav for class toggling
+
+        // Initialize global variables
+        mainNav = document.querySelector(".main-nav");
+        hamburgerIcon = document.getElementById("hamburgerMenu").querySelector('i');
+        mobileNavLinks = document.querySelectorAll('.mobile-menu-overlay .nav-link');
+
 
         gsap.set(introText, { opacity: 0, scale: 0.5 });
         gsap.set(ionMain, { opacity: 0 });
@@ -2402,8 +2411,6 @@
         const hamburgerMenu = document.getElementById("hamburgerMenu");
         const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
         const mobileMenuClose = document.getElementById("mobileMenuClose");
-        const hamburgerIcon = hamburgerMenu.querySelector('i'); // Get the icon element
-        const mobileNavLinks = document.querySelectorAll('.mobile-menu-overlay .nav-link');
 
 
         if (hamburgerMenu) {
@@ -2425,7 +2432,7 @@
             // Animate mobile menu links
             gsap.fromTo(mobileNavLinks,
               { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.3, stagger: 0.05, ease: "power2.out" }
+              { opacity: 1, y: 0, duration: 0.3, stagger: 0.05, ease: "power2.out", delay: 0.2 }
             );
           });
         }
