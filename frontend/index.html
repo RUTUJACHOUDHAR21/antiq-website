@@ -4,6 +4,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ANTIQ Radio Experience</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for social media icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
     <style>
       /* Custom scrollbar styles */
       ::-webkit-scrollbar {
@@ -46,10 +58,10 @@
       /* Navigation Styles */
       .main-nav {
         position: fixed;
-        top: 0;
+        top: 0; /* Adjusted to 0 */
         left: 0;
         width: 100%;
-        padding: 1rem 2rem;
+        padding: 0.75rem 2rem; /* Adjusted padding for desktop */
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -171,39 +183,47 @@
       /* Mobile menu overlay */
       .mobile-menu-overlay {
         display: none; /* Hidden by default */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(11, 10, 10, 0.95);
-        backdrop-filter: blur(15px);
-        z-index: 99; /* Below main nav, above content */
+        position: absolute; /* Changed to absolute */
+        top: 100%; /* Position below the nav bar */
+        right: 0; /* Align to the right of the nav bar */
+        width: max-content; /* Fit content horizontally based on widest child */
+        min-width: 160px; /* Give it a reasonable minimum width */
+        height: auto; /* Fit content vertically */
+        padding: 1rem; /* Add some padding around the menu items */
+        background: rgba(0, 0, 0, 0.9); /* Blackish background */
+        backdrop-filter: blur(5px); /* Subtle blur */
+        border-radius: 10px; /* Rounded corners for the dropdown */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+        z-index: 99;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        /* Removed opacity and transform for initial debugging */
-        /* transition: none; */ /* No transition for now */
+        align-items: center; /* Center items horizontally within the dropdown */
+        justify-content: flex-start; /* Align content to the top */
+        opacity: 0;
+        transform: translateY(-10px); /* Start slightly above its final position */
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out; /* Keep transition */
       }
 
       .mobile-menu-overlay.active {
         display: flex;
-        /* Removed opacity and transform for initial debugging */
+        opacity: 1;
+        transform: translateY(0);
       }
 
       /* Mobile menu links will always be vertical due to flex-direction: column on .mobile-menu-overlay .nav-links */
       .mobile-menu-overlay .nav-links {
-        flex-direction: column;
-        gap: 2rem;
-        margin-right: 0;
+        display: flex; /* Ensure flexbox for vertical layout */
+        flex-direction: column; /* Ensure vertical layout */
+        gap: 0.8rem; /* Further reduced gap for mobile menu links */
+        margin-right: 0; /* No right margin needed for vertical list */
+        align-items: stretch; /* Make children fill the width of this container */
       }
 
       .mobile-menu-overlay .nav-link {
-        font-size: 1.5rem;
-        padding: 0.8rem 1.5rem; /* Increased padding for better tap target */
+        font-size: 1.3rem;
+        padding: 0.6rem 1rem; /* Increased padding for better tap target */
         border-radius: 10px; /* Rounded corners for menu items */
         text-align: center;
-        width: fit-content; /* Adjust width to content */
+        width: 100%; /* Make links take full width of the parent (nav-links) */
         /* Initial state for animation */
         opacity: 0;
         transform: translateY(20px);
@@ -218,12 +238,15 @@
       }
 
       /* Specific style for the Preorder button in mobile menu */
-      .mobile-menu-overlay .nav-preorder-button {
-        background-color: white;
-        color: black !important;
-        padding: 0.8rem 2rem;
-        border-radius: 30px;
-        font-weight: bold;
+      .mobile-menu-overlay .nav-preorder-button { /* TARGETING THIS CLASS */
+        width: 100%; /* Make the button take full width */
+        text-align: center; /* Center text within the button */
+        box-sizing: border-box; /* Include padding/border in width */
+        background-color: white; /* Ensure background is white */
+        color: black !important; /* Ensure text is black */
+        padding: 0.8rem 2rem; /* Match other button padding */
+        border-radius: 30px; /* Match other button border-radius */
+        font-weight: bold; /* Match other button font-weight */
         margin-top: 1rem; /* Add some space from other links */
       }
 
@@ -237,14 +260,15 @@
       /* Close button for mobile menu */
       .mobile-menu-close {
         position: absolute;
-        top: 1.5rem;
-        right: 2rem;
-        font-size: 2rem;
+        top: 0.5rem; /* Adjusted position within the dropdown */
+        right: 0.5rem; /* Adjusted position within the dropdown */
+        font-size: 1.5rem; /* Slightly smaller close button for dropdown */
         color: white;
         cursor: pointer;
         background: none;
         border: none;
         transition: transform 0.3s ease; /* For close button animation */
+        z-index: 100; /* Ensure close button is clickable */
       }
       .mobile-menu-close:hover {
         transform: rotate(90deg) scale(1.1); /* Rotate and slight scale on hover */
@@ -1021,8 +1045,13 @@
 
       /* Responsive adjustments */
       @media (max-width: 768px) {
+        body {
+          padding-top: 0px; /* Adjusted padding for mobile view to clear fixed nav bar */
+        }
         .main-nav {
-          padding: 0.7rem 1rem; /* Slightly reduced padding for mobile */
+          padding: 0.15rem 0.4rem; /* Adjusted padding for mobile */
+          justify-content: flex-start; /* Align logo and hamburger to the start */
+          gap: 0.2rem; /* Reduced gap for logo and hamburger */
         }
 
         .nav-logo {
@@ -1137,15 +1166,6 @@
         }
       }
     </style>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Font Awesome for social media icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
   </head>
   <body>
     <nav class="main-nav">
@@ -1175,7 +1195,7 @@
     <div class="mobile-menu-overlay" id="mobileMenuOverlay">
       <button class="mobile-menu-close" id="mobileMenuClose">×</button>
       <div class="nav-links">
-        <a href="#home" class="nav-link active" data-section="home">HOME</a>
+        <a href="#home" class="nav-link" data-section="home">HOME</a>
         <a href="#menu" class="nav-link" data-section="menu">PRODUCTS</a>
         <a href="#about" class="nav-link" data-section="about">ABOUT</a>
         <a href="#services" class="nav-link" data-section="services"
@@ -2129,7 +2149,7 @@
               try {
                 // *** IMPORTANT CHANGE HERE: Update the URL to your live backend URL ***
                 const response = await fetch(
-                  "https://antiq-website.onrender.com/api/contact", // Changed from localhost to your live backend URL
+                  "https://antiq-website.onrender.com/api/preorder", // Changed from localhost to your live backend URL
                   {
                     method: "POST",
                     headers: {
@@ -2142,15 +2162,18 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                  showPopup("contactFormSuccess");
+                  hidePopup();
+                  showPopup("preorderSuccess");
                   this.reset();
                 } else {
+                  hidePopup();
                   showPopup("error");
                   document.getElementById("errorMessage").textContent =
-                    result.message || "Failed to send message.";
+                    result.message || "Failed to submit preorder.";
                 }
               } catch (error) {
                 console.error("Error:", error);
+                hidePopup();
                 showPopup("error");
                 document.getElementById("errorMessage").textContent =
                   "Network error. Please try again later.";
@@ -2277,7 +2300,31 @@
             const mobileMenuOverlay =
               document.getElementById("mobileMenuOverlay");
             if (mobileMenuOverlay.classList.contains("active")) {
-              mobileMenuOverlay.classList.remove("active");
+              // Animate mobile menu links out before closing overlay
+              gsap.to(mobileNavLinks,
+                {
+                  opacity: 0,
+                  y: 20,
+                  duration: 0.3,
+                  stagger: 0.05,
+                  ease: "power2.in",
+                  onComplete: () => {
+                    mobileMenuOverlay.classList.remove("active");
+                    mainNav.classList.remove("menu-open"); // Remove class from main-nav
+                    // Animate icon back to 'bars'
+                    gsap.to(hamburgerIcon, {
+                      rotation: 180, // Rotate 180 degrees
+                      opacity: 0,
+                      duration: 0.2,
+                      onComplete: () => {
+                        hamburgerIcon.classList.remove('fa-times');
+                        hamburgerIcon.classList.add('fa-bars');
+                        gsap.fromTo(hamburgerIcon, { rotation: -180, opacity: 0 }, { rotation: 0, opacity: 1, duration: 0.2 });
+                      }
+                    });
+                  }
+                }
+              );
             }
           }
         }
@@ -2362,7 +2409,6 @@
         if (hamburgerMenu) {
           hamburgerMenu.addEventListener("click", () => {
             mobileMenuOverlay.classList.add("active");
-            console.log("Mobile menu active class added:", mobileMenuOverlay.classList.contains("active")); // Debug log
             mainNav.classList.add("menu-open"); // Add class to main-nav
             // Animate icon to 'times'
             gsap.to(hamburgerIcon, {
