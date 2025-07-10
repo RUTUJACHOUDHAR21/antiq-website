@@ -447,22 +447,23 @@
 
       .mobile-menu-overlay {
         display: none; /* Hidden by default */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        position: absolute; /* Changed to absolute */
+        top: 100%; /* Position below the nav bar */
+        right: 0; /* Align to the right of the nav bar */
+        width: max-content; /* Fit content horizontally */
+        height: auto; /* Fit content vertically */
+        padding: 1rem; /* Add some padding around the menu items */
         background: transparent; /* Changed to transparent */
         backdrop-filter: none; /* Removed backdrop filter */
         z-index: 99;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        align-items: flex-end; /* Align items to the right within this dropdown */
+        justify-content: flex-start; /* Align content to the top */
         opacity: 0;
-        transform: translateY(-100%);
-        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        transform: translateY(-10px); /* Start slightly above its final position */
         box-shadow: none; /* Removed box-shadow */
         border: none; /* Removed border */
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out; /* Keep transition */
       }
 
       .mobile-menu-overlay.active {
@@ -474,7 +475,8 @@
       .mobile-menu-overlay .nav-links {
         flex-direction: column; /* Ensure vertical layout */
         gap: 0.8rem; /* Further reduced gap for mobile menu links */
-        margin-right: 0;
+        margin-right: 0; /* No right margin needed for vertical list */
+        align-items: flex-end; /* Align links to the right within the dropdown */
       }
 
       .mobile-menu-overlay .nav-link {
@@ -497,14 +499,15 @@
 
       .mobile-menu-close {
         position: absolute;
-        top: 1rem; /* Adjusted close button position */
-        right: 1.5rem; /* Adjusted close button position */
-        font-size: 1.8rem; /* Reduced font size for close button */
+        top: 0.5rem; /* Adjusted close button position within the dropdown */
+        right: 0.5rem; /* Adjusted close button position within the dropdown */
+        font-size: 1.5rem; /* Slightly smaller close button for dropdown */
         color: white;
         cursor: pointer;
         background: none;
         border: none;
         transition: transform 0.3s ease;
+        z-index: 100; /* Ensure close button is clickable */
       }
       .mobile-menu-close:hover {
         transform: rotate(90deg) scale(1.1);
@@ -656,7 +659,7 @@
   <body class="min-h-screen gradient-bg-full">
     <!-- Top Nav Bar -->
     <nav
-      class="w-full flex justify-between items-center px-6 md:px-12 py-6 main-nav"
+      class="w-full flex justify-between items-center px-6 md:px-12 py-6 main-nav relative"
     >
       <!-- Logo -->
       <div class="text-white text-2xl font-semibold">ANTIQ</div>
@@ -691,25 +694,25 @@
           Pre-order Now
         </button>
       </div>
-    </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
-      <button class="mobile-menu-close" id="mobileMenuClose">×</button>
-      <div class="nav-links">
-        <a href="index.html#home" class="nav-link">Home</a>
-        <a href="index.html#features" class="nav-link">Features</a>
-        <a href="#" onclick="showPopup('preorder')" class="nav-link"
-          >Pre-order</a
-        >
-        <button
-          onclick="showPopup('preorder')"
-          class="bg-white text-black font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-75 mt-4"
-        >
-          Pre-order Now
-        </button>
+      <!-- Mobile Menu Overlay - MOVED INSIDE NAV -->
+      <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <button class="mobile-menu-close" id="mobileMenuClose">×</button>
+        <div class="nav-links">
+          <a href="index.html#home" class="nav-link">Home</a>
+          <a href="index.html#features" class="nav-link">Features</a>
+          <a href="#" onclick="showPopup('preorder')" class="nav-link"
+            >Pre-order</a
+          >
+          <button
+            onclick="showPopup('preorder')"
+            class="bg-white text-black font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-75 mt-4"
+          >
+            Pre-order Now
+          </button>
+        </div>
       </div>
-    </div>
+    </nav>
 
     <!-- Main Content Area -->
     <!-- This container uses flex-col by default (mobile) and flex-row on medium screens and up (desktop) -->
@@ -1042,7 +1045,7 @@
             // Animate overlay from top
             gsap.fromTo(
               mobileMenuOverlay,
-              { y: "-100%", opacity: 0 },
+              { y: "-10px", opacity: 0 }, /* Adjusted start for dropdown */
               { y: "0%", opacity: 1, duration: 0.4, ease: "power2.out" }
             );
             // Animate mobile nav links and button with more distinct stagger and slightly bouncy ease
@@ -1065,7 +1068,7 @@
             gsap.to(mobileNavLinks, { opacity: 0, y: 30, scale: 0.95, duration: 0.3, stagger: 0.05, ease: "power2.in" });
             gsap.to(mobilePreorderButton, { opacity: 0, y: 30, scale: 0.95, duration: 0.3, ease: "power2.in", onComplete: () => {
               // Animate overlay back to top after links fade
-              gsap.to(mobileMenuOverlay, { y: "-100%", opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => {
+              gsap.to(mobileMenuOverlay, { y: "-10px", opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => { /* Adjusted end for dropdown */
                 mobileMenuOverlay.classList.remove("active");
               }});
             }});
@@ -1078,7 +1081,7 @@
             gsap.to(mobileNavLinks, { opacity: 0, y: 30, scale: 0.95, duration: 0.3, stagger: 0.05, ease: "power2.in" });
             gsap.to(mobilePreorderButton, { opacity: 0, y: 30, scale: 0.95, duration: 0.3, ease: "power2.in", onComplete: () => {
               // Animate overlay back to top after links fade
-              gsap.to(mobileMenuOverlay, { y: "-100%", opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => {
+              gsap.to(mobileMenuOverlay, { y: "-10px", opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => { /* Adjusted end for dropdown */
                 mobileMenuOverlay.classList.remove("active");
               }});
             }});
