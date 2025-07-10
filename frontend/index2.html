@@ -21,7 +21,7 @@
         font-family: "Inter", sans-serif;
         margin: 0;
         /* Adjusted padding to ensure content clears fixed nav bar on desktop and mobile */
-        padding-top: 96px;
+        padding-top: 0px; /* Removed padding-top */
         overflow-x: hidden; /* Prevent horizontal scrolling */
         background-color: rgb(11, 11, 11); /* Dark background */
         color: white; /* Default text color */
@@ -418,10 +418,10 @@
       /* Navigation Bar (Desktop & Mobile) */
       .main-nav {
         position: fixed;
-        top: 0;
+        top: 0; /* Adjusted to 0 */
         left: 0;
         width: 100%;
-        padding: 1rem 2rem;
+        padding: 0.75rem 2rem; /* Adjusted padding for desktop */
         display: flex;
         justify-content: space-between; /* Default for desktop */
         align-items: center;
@@ -525,10 +525,10 @@
       /* Responsive adjustments */
       @media (max-width: 768px) {
         body {
-          padding-top: 40px; /* Adjusted padding for mobile view to clear fixed nav bar */
+          padding-top: 0px; /* Adjusted padding for mobile view to clear fixed nav bar */
         }
         .main-nav {
-          padding: 0.2rem 0.4rem; /* Further reduced horizontal padding for tighter look */
+          padding: 0.15rem 0.4rem; /* Adjusted padding for mobile */
           justify-content: flex-start; /* Align logo and hamburger to the start */
           gap: 0.2rem; /* Reduced gap for logo and hamburger */
         }
