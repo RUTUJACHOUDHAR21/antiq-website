@@ -260,7 +260,7 @@
           0.1
         ); /* Slightly brighter input background */
         border: 1px solid rgba(255, 255, 255, 0.3); /* More visible border */
-        padding: 1.1rem; /* Increased padding for inputs */
+        padding: 1.2rem; /* Increased padding for inputs */
         border-radius: 8px; /* More rounded inputs */
         color: white;
         font-family: "Inter", sans-serif; /* Ensure Inter font */
@@ -293,7 +293,8 @@
       .preorder-form-popup input[type="email"]:focus,
       .preorder-form-popup input[type="tel"]:focus,
       .preorder-form-popup textarea:focus,
-      .preorder-form-popup select:focus {
+      .preorder-form-popup select:focus,
+      .preorder-form-popup input[type="number"]:focus { /* Added number input to focus styles */
         background: rgba(
           255,
           255,
@@ -306,8 +307,14 @@
           255,
           0.5
         ); /* Softer white border on focus */
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.5); /* Darker, more subtle glow on focus */
+        box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5); /* Changed to inset shadow */
         outline: none; /* Ensure no default outline */
+      }
+
+      /* Specific style for number input to ensure visibility */
+      .preorder-form-popup input[type="number"] {
+        background: rgba(255, 255, 255, 0.1) !important; /* Darker background for number input */
+        color: white !important; /* Explicitly set text color for number input with !important */
       }
 
       .preorder-form-popup .submit-btn {
@@ -569,6 +576,9 @@
         .bottom-text {
           font-size: 1.5rem; /* Smaller bottom text on mobile */
           bottom: 1rem; /* Adjusted position */
+          white-space: normal; /* Allow text to wrap on mobile */
+          text-align: center; /* Center the text when wrapped */
+          padding: 0 1rem; /* Add some horizontal padding */
         }
       }
     </style>
@@ -621,7 +631,7 @@
     <!-- Mobile Menu Overlay -->
     <div
       id="mobileMenuOverlay"
-      class="fixed inset-0 bg-black bg-opacity-90 z-20 hidden flex-col items-center justify-center"
+      class="fixed inset-0 bg-black bg-opacity-90 z-[110] hidden flex-col items-center justify-center"
     >
       <button
         class="absolute top-6 right-6 text-white text-4xl focus:outline-none"
