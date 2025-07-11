@@ -426,8 +426,14 @@
           font-size: 1.25rem; /* Smaller logo on mobile */
         }
 
-        .main-nav .flex-grow {
-          display: none; /* Hide nav items on mobile by default */
+        /* The desktop navigation items should be hidden on mobile */
+        .main-nav .hidden.md\:flex {
+          display: none !important; /* Ensure it's hidden */
+        }
+
+        /* The mobile menu button should be visible on mobile */
+        .main-nav .md\:hidden {
+          display: block !important; /* Ensure it's visible */
         }
 
         .main-nav .sm:w-auto {
@@ -809,12 +815,15 @@
        */
       function toggleMobileNavMenu() {
         const mobileNavOverlay = document.getElementById("mobileMenuOverlay");
+        console.log("toggleMobileNavMenu called. Current classes:", mobileNavOverlay.classList);
         if (mobileNavOverlay.classList.contains("hidden")) {
           mobileNavOverlay.classList.remove("hidden");
           mobileNavOverlay.classList.add("flex");
+          console.log("Mobile menu opened. New classes:", mobileNavOverlay.classList);
         } else {
           mobileNavOverlay.classList.add("hidden");
           mobileNavOverlay.classList.remove("flex");
+          console.log("Mobile menu closed. New classes:", mobileNavOverlay.classList);
         }
       }
 
