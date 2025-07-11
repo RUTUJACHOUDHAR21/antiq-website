@@ -152,24 +152,6 @@
         font-weight: bold;
       }
 
-      /* New style for the Preorder button */
-      .nav-preorder-button {
-        background-color: white;
-        color: black !important; /* Use !important to override .nav-link color */
-        padding: 0.5rem 1rem;
-        border-radius: 20px; /* Increased border-radius for more rounded corners */
-        font-weight: bold;
-        text-decoration: none; /* Ensure no underline */
-        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        will-change: transform, background, color;
-      }
-
-      .nav-preorder-button:hover {
-        background-color: #ddd;
-        transform: translateY(-2px);
-        color: black !important; /* Keep text black on hover */
-      }
-
       /* Hamburger menu icon */
       .hamburger-menu {
         display: none; /* Hidden by default, shown on mobile */
@@ -249,27 +231,6 @@
         transform: translateY(-3px) scale(1.02); /* Subtle lift and scale */
         color: #fff;
       }
-
-      /* Specific style for the Preorder button in mobile menu */
-      .mobile-menu-overlay .nav-preorder-button {
-        background-color: transparent; /* Changed to transparent */
-        color: white !important; /* Changed to white */
-        padding: 0.6rem 1.2rem; /* Matched other nav-link padding */
-        border-radius: 8px; /* Matched other nav-link border-radius */
-        font-weight: bold;
-        text-decoration: none;
-        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        will-change: transform, background, color;
-        margin-top: 0.8rem; /* Matched nav-links gap */
-        width: auto; /* Removed min-width */
-      }
-
-      .mobile-menu-overlay .nav-preorder-button:hover {
-        background-color: rgba(255, 255, 255, 0.15); /* Matched other nav-link hover */
-        color: white !important; /* Matched other nav-link hover */
-        transform: translateY(-3px) scale(1.02); /* Matched other nav-link hover effect */
-      }
-
 
       /* Close button for mobile menu - position relative to the overlay */
       .mobile-menu-close {
@@ -1080,10 +1041,6 @@
           display: none; /* Hide desktop nav links */
         }
 
-        .nav-preorder-button { /* Target the button specifically */
-          display: none; /* Hide desktop preorder button */
-        }
-
         .hamburger-menu {
           display: block; /* Show hamburger menu icon */
           font-size: 1.5rem; /* Slightly smaller hamburger icon for better balance */
@@ -1200,8 +1157,14 @@
         <a href="#about" class="nav-link">ABOUT</a>
         <a href="#services" class="nav-link">SERVICES</a>
         <a href="#contact" class="nav-link">CONTACT</a>
-        <!-- Changed to nav-link class -->
-        <a href="index2.html" class="nav-link nav-preorder-button">PREORDER</a>
+        <!-- Consolidated Preorder button as an anchor tag, using the same classes as the mobile one for consistency -->
+        <a
+          href="#"
+          onclick="showPopup('preorder')"
+          class="bg-white text-black font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-75"
+        >
+          Pre-order Now
+        </a>
       </div>
     </nav>
 
@@ -1218,7 +1181,13 @@
           >
           <a href="#contact" class="nav-link" data-section="contact">CONTACT</a>
           <!-- NEW PREORDER BUTTON FOR MOBILE MENU -->
-          <a href="index2.html" class="nav-link nav-preorder-button">PREORDER NOW</a>
+          <a
+            href="#"
+            onclick="showPopup('preorder')"
+            class="bg-white text-black font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-75 mt-4"
+          >
+            Pre-order Now
+          </a>
         </div>
       </div>
     </div>
@@ -2278,11 +2247,52 @@
       }
 
       /**
+       * Closes the mobile menu overlay and resets the hamburger icon.
+       */
+      function closeMobileMenuAndResetIcon() {
+        const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
+        const hamburgerIcon = document.getElementById("hamburgerMenu").querySelector('i');
+        const mainNav = document.querySelector(".main-nav");
+        // Select all links and the button in the mobile menu for animation
+        const mobileNavLinks = document.querySelectorAll('.mobile-menu-overlay .nav-link, .mobile-menu-overlay .bg-white');
+
+        if (mobileMenuOverlay.classList.contains("active")) {
+            gsap.to(mobileNavLinks,
+                {
+                    opacity: 0,
+                    y: 20,
+                    scale: 0.95,
+                    duration: 0.3,
+                    stagger: 0.05,
+                    ease: "power2.in",
+                    onComplete: () => {
+                        mobileMenuOverlay.classList.remove("active");
+                        mainNav.classList.remove("menu-open"); // Remove class from main-nav
+                    }
+                }
+            );
+
+            gsap.to(hamburgerIcon, {
+                rotation: 180,
+                opacity: 0,
+                duration: 0.2,
+                onComplete: () => {
+                    hamburgerIcon.classList.remove('fa-times');
+                    hamburgerIcon.classList.add('fa-bars');
+                    gsap.fromTo(hamburgerIcon, { rotation: -180, opacity: 0 }, { rotation: 0, opacity: 1, duration: 0.2 });
+                }
+            });
+        }
+      }
+
+      /**
        * Handles navigation link clicks, smoothly scrolls to the section,
        * and updates the active navigation link.
        */
       function handleNavClick(event) {
-        // Only prevent default for internal links (those starting with #)
+        // Check if the clicked element is the Pre-order button (which is now an <a> tag with bg-white class)
+        const isPreorderButton = event.target.classList.contains('bg-white');
+
         if (event.target.getAttribute("href").startsWith("#")) {
           event.preventDefault();
           const targetId = event.target.getAttribute("href").substring(1);
@@ -2318,67 +2328,13 @@
                 }
               });
 
-            // Close mobile menu if open
-            const mobileMenuOverlay =
-              document.getElementById("mobileMenuOverlay");
-            if (mobileMenuOverlay.classList.contains("active")) {
-              // Animate mobile menu links out before closing overlay
-              gsap.to(mobileNavLinks,
-                {
-                  opacity: 0,
-                  y: 20,
-                  duration: 0.3,
-                  stagger: 0.05,
-                  ease: "power2.in",
-                  onComplete: () => {
-                    mobileMenuOverlay.classList.remove("active");
-                    mainNav.classList.remove("menu-open"); // Remove class from main-nav
-                    // Animate icon back to 'bars'
-                    gsap.to(hamburgerIcon, {
-                      rotation: 180, // Rotate 180 degrees
-                      opacity: 0,
-                      duration: 0.2,
-                      onComplete: () => {
-                        hamburgerIcon.classList.remove('fa-times');
-                        hamburgerIcon.classList.add('fa-bars');
-                        gsap.fromTo(hamburgerIcon, { rotation: -180, opacity: 0 }, { rotation: 0, opacity: 1, duration: 0.2 });
-                      }
-                    });
-                  }
-                }
-              );
-            }
+            closeMobileMenuAndResetIcon(); // Close mobile menu and reset icon after navigation
           }
-        } else if (event.target.classList.contains('nav-preorder-button')) {
-            // If it's the preorder button, close mobile menu and navigate
-            const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
-            if (mobileMenuOverlay.classList.contains("active")) {
-                gsap.to(mobileNavLinks,
-                    {
-                        opacity: 0,
-                        y: 20,
-                        duration: 0.3,
-                        stagger: 0.05,
-                        ease: "power2.in",
-                        onComplete: () => {
-                            mobileMenuOverlay.classList.remove("active");
-                            mainNav.classList.remove("menu-open");
-                            gsap.to(hamburgerIcon, {
-                                rotation: 180,
-                                opacity: 0,
-                                duration: 0.2,
-                                onComplete: () => {
-                                    hamburgerIcon.classList.remove('fa-times');
-                                    hamburgerIcon.classList.add('fa-bars');
-                                    gsap.fromTo(hamburgerIcon, { rotation: -180, opacity: 0 }, { rotation: 0, opacity: 1, duration: 0.2 });
-                                }
-                            });
-                            window.location.href = event.target.getAttribute("href"); // Navigate after closing animation
-                        }
-                    }
-                );
-                event.preventDefault(); // Prevent immediate navigation
-            }
+        } else if (isPreorderButton) {
+            // If it's the preorder button, always show popup and close mobile menu if open
+            event.preventDefault(); // Prevent default navigation
+            showPopup('preorder');
+            closeMobileMenuAndResetIcon(); // Close mobile menu if open
         }
       }
 
@@ -2394,7 +2350,8 @@
         // Initialize global variables
         mainNav = document.querySelector(".main-nav");
         hamburgerIcon = document.getElementById("hamburgerMenu").querySelector('i');
-        mobileNavLinks = document.querySelectorAll('.mobile-menu-overlay .nav-link');
+        // Include the preorder button in mobileNavLinks as it's now an <a> tag and needs to be animated
+        mobileNavLinks = document.querySelectorAll('.mobile-menu-overlay .nav-link, .mobile-menu-overlay .bg-white');
 
 
         gsap.set(introText, { opacity: 0, scale: 0.5 });
@@ -2450,7 +2407,7 @@
 
         // Attach handleNavClick to all navigation links, including the preorder button
         document
-          .querySelectorAll(".main-nav .nav-links .nav-link, .mobile-menu-overlay .nav-links .nav-link")
+          .querySelectorAll(".main-nav .nav-links a, .mobile-menu-overlay .nav-links a")
           .forEach((link) => {
             link.addEventListener("click", handleNavClick);
           });
@@ -2465,6 +2422,7 @@
           hamburgerMenu.addEventListener("click", () => {
             mobileMenuOverlay.classList.add("active");
             mainNav.classList.add("menu-open"); // Add class to main-nav
+
             // Animate icon to 'times'
             gsap.to(hamburgerIcon, {
               rotation: 180, // Rotate 180 degrees
@@ -2479,40 +2437,15 @@
 
             // Animate mobile menu links
             gsap.fromTo(mobileNavLinks,
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.3, stagger: 0.05, ease: "power2.out", delay: 0.2 }
+              { opacity: 0, y: 20, scale: 0.95 }, // Added scale for a subtle pop-in
+              { opacity: 1, y: 0, scale: 1, duration: 0.3, stagger: 0.05, ease: "power2.out", delay: 0.2 }
             );
           });
         }
 
         if (mobileMenuClose) {
           mobileMenuClose.addEventListener("click", () => {
-            // Animate mobile menu links out before closing overlay
-            gsap.to(mobileNavLinks,
-              {
-                opacity: 0,
-                y: 20,
-                duration: 0.3,
-                stagger: 0.05,
-                ease: "power2.in",
-                onComplete: () => {
-                  mobileMenuOverlay.classList.remove("active");
-                  mainNav.classList.remove("menu-open"); // Remove class from main-nav
-                }
-              }
-            );
-
-            // Animate icon back to 'bars'
-            gsap.to(hamburgerIcon, {
-              rotation: 180, // Rotate 180 degrees
-              opacity: 0,
-              duration: 0.2,
-              onComplete: () => {
-                hamburgerIcon.classList.remove('fa-times');
-                hamburgerIcon.classList.add('fa-bars');
-                gsap.fromTo(hamburgerIcon, { rotation: -180, opacity: 0 }, { rotation: 0, opacity: 1, duration: 0.2 });
-              }
-            });
+            closeMobileMenuAndResetIcon();
           });
         }
 
