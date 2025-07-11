@@ -251,7 +251,6 @@
       .preorder-form-popup input[type="text"],
       .preorder-form-popup input[type="email"],
       .preorder-form-popup input[type="tel"],
-      .preorder-form-popup input[type="number"], /* Added input[type="number"] */
       .preorder-form-popup textarea,
       .preorder-form-popup select {
         background: rgba(
@@ -293,7 +292,6 @@
       .preorder-form-popup input[type="text"]:focus,
       .preorder-form-popup input[type="email"]:focus,
       .preorder-form-popup input[type="tel"]:focus,
-      .preorder-form-popup input[type="number"]:focus, /* Added input[type="number"] */
       .preorder-form-popup textarea:focus,
       .preorder-form-popup select:focus {
         background: rgba(
@@ -455,7 +453,7 @@
             padding-top: 5rem; /* Adjusted padding for smaller mobile header */
         }
         .main-nav {
-          padding: 0.75rem 2rem; /* Increased padding on mobile for better alignment */
+          padding: 0.75rem 1rem; /* Smaller padding on mobile for shorter header */
         }
 
         .main-nav .text-2xl {
@@ -541,8 +539,7 @@
 
         .popup {
           padding: 1.5rem; /* Smaller padding for popup on mobile */
-          max-width: 95%; /* Wider popup on mobile */
-          width: 95%; /* Ensure it takes 95% of the viewport width */
+          width: 95%; /* Wider popup on mobile */
         }
 
         .popup h2 {
@@ -557,10 +554,7 @@
           font-size: 0.9rem; /* Smaller form labels */
         }
 
-        .preorder-form-popup input[type="text"],
-        .preorder-form-popup input[type="email"],
-        .preorder-form-popup input[type="tel"],
-        .preorder-form-popup input[type="number"], /* Added input[type="number"] */
+        .preorder-form-popup input,
         .preorder-form-popup textarea,
         .preorder-form-popup select {
           padding: 0.8rem; /* Smaller input padding */
@@ -568,8 +562,8 @@
         }
 
         .preorder-form-popup .submit-btn {
-          padding: 0.8rem; /* Further reduced padding */
-          font-size: 0.9rem; /* Further reduced font size */
+          padding: 1rem; /* Smaller submit button padding */
+          font-size: 1rem; /* Smaller submit button font */
         }
 
         .bottom-text {
