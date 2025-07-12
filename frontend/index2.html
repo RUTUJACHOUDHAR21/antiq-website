@@ -961,7 +961,7 @@
                         <!-- Shipping Address Section: Consolidated into one input box -->
                         <div class="form-group">
                             <label for="shippingAddress">Shipping Address</label>
-                            <input type="text" id="shippingAddress" name="shippingAddress" placeholder="Street, City, State, Zip, Country" required />
+                            <input type="text" id="shippingAddress" name="address" placeholder="Street, City, State, Zip, Country" required />
                         </div>
                         <!-- End Shipping Address Section -->
                         <div class="checkbox-group">
@@ -995,6 +995,9 @@
               event.preventDefault();
               const formData = new FormData(this);
               const data = Object.fromEntries(formData.entries());
+
+              // Log the data being sent for debugging purposes
+              console.log("Form Data being sent:", data);
 
               try {
                 // *** IMPORTANT CHANGE HERE: Update the URL to your live backend URL ***
