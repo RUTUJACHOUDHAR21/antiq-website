@@ -996,6 +996,9 @@
               const formData = new FormData(this);
               const data = Object.fromEntries(formData.entries());
 
+              // Explicitly convert quantity to a number
+              data.quantity = parseInt(data.quantity, 10);
+
               // Log the data being sent for debugging purposes
               console.log("Form Data being sent:", data);
 
