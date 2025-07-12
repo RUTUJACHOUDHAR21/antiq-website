@@ -1182,8 +1182,7 @@
           <a href="#contact" class="nav-link" data-section="contact">CONTACT</a>
           <!-- NEW PREORDER BUTTON FOR MOBILE MENU -->
           <a
-            href="#"
-            onclick="showPopup('preorder')"
+            href="index2.html"
             class="bg-white text-black font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-75 mt-4"
           >
             Pre-order Now
@@ -2333,8 +2332,11 @@
         } else if (isPreorderButton) {
             // If it's the preorder button, always show popup and close mobile menu if open
             event.preventDefault(); // Prevent default navigation
-            showPopup('preorder');
             closeMobileMenuAndResetIcon(); // Close mobile menu if open
+            // Use a small delay to allow the menu close animation to start before navigating
+            setTimeout(() => {
+                window.location.href = event.target.href;
+            }, 300); // Adjust delay as needed
         }
       }
 
