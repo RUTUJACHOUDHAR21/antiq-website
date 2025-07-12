@@ -208,8 +208,8 @@
       .preorder-form-popup {
         overflow-y: auto;
         max-height: calc(90vh - 200px);
-        /* Changed padding-right to horizontal padding for consistent spacing */
-        padding: 0 1rem;
+        /* Added vertical padding to prevent cutting on focus */
+        padding: 1rem; /* Added vertical padding */
         box-sizing: border-box;
       }
 
@@ -980,7 +980,7 @@
         } else if (type === "error") {
           content = `
                     <h2>Error!</h2>
-                    <p id="errorMessage"></p>
+                    <p id="errorMessage">An error occurred. Please check your browser's console for more details and try again.</p>
                     <button class="submit-btn" onclick="hidePopup()">Close</button>
                 `;
         }
@@ -1019,14 +1019,14 @@
                   hidePopup();
                   showPopup("error");
                   document.getElementById("errorMessage").textContent =
-                    result.message || "Failed to submit preorder.";
+                    result.message || "Failed to submit preorder. Please check your browser's console for more details.";
                 }
               } catch (error) {
                 console.error("Error:", error);
                 hidePopup();
                 showPopup("error");
                 document.getElementById("errorMessage").textContent =
-                  "Network error. Please try again later.";
+                  "Network error. Please ensure your internet connection is stable and try again. Check console for details.";
               }
             });
           }
