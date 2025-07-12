@@ -1390,7 +1390,8 @@
                 <a href="#" class="social-icon"
                   ><i class="fab fa-instagram"></i
                 ></a>
-                <a href="#" class="fab fa-linkedin-in"></i
+                <a href="#" class="social-icon"
+                  ><i class="fab fa-linkedin-in"></i
                 ></a>
               </div>
             </footer>
@@ -1725,6 +1726,18 @@
           }
 
           modelContinuousRotationY += 0.001;
+
+          // Lerp model's X and Y positions towards their targets
+          model.position.x = THREE.MathUtils.lerp(
+            model.position.x,
+            targetPositionX,
+            0.05
+          );
+          model.position.y = THREE.MathUtils.lerp(
+            model.position.y,
+            targetPositionY,
+            0.05
+          );
 
           // Calculate the combined target Y rotation (section-based + continuous + user + scroll)
           const combinedTargetYRotation =
@@ -2242,6 +2255,7 @@
         // Select all links and the button in the mobile menu for animation
         const mobileNavLinks = document.querySelectorAll('.mobile-menu-overlay .nav-link, .mobile-menu-overlay .bg-white');
 
+
         if (mobileMenuOverlay.classList.contains("active")) {
             gsap.to(mobileNavLinks,
                 {
@@ -2320,10 +2334,9 @@
             // If it's the preorder button, always show popup and close mobile menu if open
             event.preventDefault(); // Prevent default navigation
             closeMobileMenuAndResetIcon(); // Close mobile menu if open
-            // Use a small delay to allow the menu close animation to start before navigating
-            setTimeout(() => {
-                window.location.href = event.target.href;
-            }, 300); // Adjust delay as needed
+            // No need for setTimeout here if you want immediate navigation after menu close,
+            // but if the navigation is to a new page (like index2.html), it will happen anyway.
+            window.location.href = event.target.href;
         }
       }
 
@@ -2434,7 +2447,7 @@
 
         if (mobileMenuClose) {
           mobileMenuClose.addEventListener("click", () => {
-            closeMobileMenuAndResetIcon(); // Call the function to close the menu and reset the icon
+            closeMobileMenuAndResetIcon();
           });
         }
 
