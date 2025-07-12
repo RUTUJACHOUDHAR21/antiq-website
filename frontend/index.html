@@ -165,23 +165,24 @@
       /* Mobile menu overlay */
       .mobile-menu-overlay {
         display: none; /* Hidden by default */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        padding: 0; /* No padding on the overlay itself */
-        background: transparent; /* Changed to transparent */
-        backdrop-filter: none; /* Removed backdrop-filter */
-        border-radius: 0;
-        box-shadow: none;
+        position: absolute; /* Changed to absolute */
+        top: 100%; /* Position below the nav bar */
+        right: 0; /* Align to the right of the nav bar */
+        width: max-content; /* Fit content horizontally based on widest child */
+        min-width: 160px; /* Give it a reasonable minimum width */
+        height: auto; /* Fit content vertically */
+        padding: 1rem; /* Add some padding around the menu items */
+        background: rgba(0, 0, 0, 0.9); /* Blackish background */
+        backdrop-filter: blur(5px); /* Subtle blur */
+        border-radius: 10px; /* Rounded corners for the dropdown */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow */
         z-index: 99;
-        flex-direction: column; /* Keep flex-direction for positioning the container */
-        align-items: flex-end; /* Align container to the right */
-        justify-content: flex-start; /* Align container to the top */
+        flex-direction: column;
+        align-items: center; /* Center items horizontally within the dropdown */
+        justify-content: flex-start; /* Align content to the top */
         opacity: 0;
-        transform: translateY(100%);
-        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        transform: translateY(-10px); /* Start slightly above its final position */
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out; /* Keep transition */
       }
 
       .mobile-menu-overlay.active {
@@ -190,35 +191,21 @@
         transform: translateY(0);
       }
 
-      /* New container for the mobile menu content */
-      .mobile-menu-container {
-        background: rgba(11, 10, 10, 0.9); /* Darker, more opaque background for the menu block */
-        backdrop-filter: blur(15px); /* Heavy blur for the menu block */
-        border-radius: 15px; /* Rounded corners for the menu block */
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); /* Shadow for the menu block */
-        padding: 1.5rem; /* Padding inside the menu block */
-        margin-top: 80px; /* Space from the top of the viewport, below the main nav */
-        margin-right: 1.5rem; /* Space from the right edge of the viewport */
-        width: auto; /* Let content define width */
-        max-width: 80%; /* Max width for the menu container */
-        box-sizing: border-box;
-      }
-
       /* Mobile menu links will now be inside mobile-menu-container */
       .mobile-menu-overlay .nav-links {
         display: flex;
         flex-direction: column;
         gap: 0.8rem; /* Slightly increased gap for better spacing */
-        align-items: center; /* Center items within the menu block */
+        align-items: stretch; /* Make children fill the width of this container */
         width: 100%; /* Take full width of its parent (mobile-menu-container) */
       }
 
       .mobile-menu-overlay .nav-link {
-        font-size: 1.2rem; /* Slightly smaller font for compactness */
-        padding: 0.6rem 1.2rem; /* Adjusted padding for links */
-        border-radius: 8px; /* Slightly less rounded for a more modern look */
+        font-size: 1.3rem; /* Reduced font size for mobile menu links */
+        padding: 0.6rem 1rem; /* Reduced padding for mobile menu links */
+        border-radius: 10px;
         text-align: center;
-        width: auto; /* Let the link content define its width */
+        width: 100%; /* Make links take full width of the parent (nav-links) */
         /* Initial state for animation */
         opacity: 0;
         transform: translateY(20px);
@@ -227,26 +214,27 @@
 
       .mobile-menu-overlay .nav-link:hover,
       .mobile-menu-overlay .nav-link.active {
-        background-color: rgba(255, 255, 255, 0.15); /* More visible background on hover/active */
-        transform: translateY(-3px) scale(1.02); /* Subtle lift and scale */
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-5px) scale(1.05);
         color: #fff;
       }
 
       /* Close button for mobile menu - position relative to the overlay */
       .mobile-menu-close {
         position: absolute;
-        top: 1rem; /* Closer to the top right corner */
-        right: 1rem; /* Closer to the top right corner */
-        font-size: 2rem;
+        top: 0.5rem; /* Adjusted close button position within the dropdown */
+        right: 0.5rem; /* Adjusted close button position within the dropdown */
+        font-size: 1.5rem; /* Slightly smaller close button for dropdown */
         color: white;
         cursor: pointer;
         background: none;
         border: none;
         transition: transform 0.3s ease;
-        z-index: 100; /* Ensure it's above the menu container */
+        z-index: 100; /* Ensure close button is clickable */
       }
       .mobile-menu-close:hover {
         transform: rotate(90deg) scale(1.1);
+        color: #ddd; /* Slightly dim on hover */
       }
 
       /* Model Canvas Styles */
@@ -1024,7 +1012,7 @@
           padding-top: 0px; /* Adjusted padding for mobile view to clear fixed nav bar */
         }
         .main-nav {
-          padding: 0.15rem 0.2rem; /* Adjusted padding for mobile (reduced horizontal) */
+          padding: 0.15rem 0.4rem; /* Adjusted padding for mobile */
           justify-content: space-between; /* Changed to space-between for logo on one side, menu on other */
           gap: 0.2rem; /* Reduced gap for logo and hamburger */
         }
@@ -1135,6 +1123,24 @@
         .section-content {
           font-size: 0.9rem;
         }
+        .main-nav {
+            padding: 0.15rem 0.2rem; /* Even smaller padding for nav bar */
+        }
+        .nav-logo {
+            height: 40px; /* Even smaller logo height */
+        }
+        .hamburger-menu {
+            font-size: 1.2rem; /* Even smaller hamburger icon */
+        }
+        .mobile-menu-close {
+            font-size: 1.2rem; /* Even smaller close button */
+            top: 0.5rem;
+            right: 0.7rem;
+        }
+        .mobile-menu-overlay .nav-link {
+            font-size: 1rem; /* Even smaller mobile menu links */
+            padding: 0.3rem 0.5rem;
+        }
       }
     </style>
   </head>
@@ -1166,12 +1172,10 @@
           Pre-order Now
         </a>
       </div>
-    </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
-      <button class="mobile-menu-close" id="mobileMenuClose">×</button>
-      <div class="mobile-menu-container">
+      <!-- Mobile Menu Overlay -->
+      <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <button class="mobile-menu-close" id="mobileMenuClose">×</button>
         <div class="nav-links">
           <a href="#home" class="nav-link" data-section="home">HOME</a>
           <a href="#menu" class="nav-link" data-section="menu">PRODUCTS</a>
@@ -1189,7 +1193,7 @@
           </a>
         </div>
       </div>
-    </div>
+    </nav>
 
     <!-- Success message (kept for potential alternative use, but popup is primary) -->
     <div class="success-message" id="successMessage">
@@ -2250,7 +2254,7 @@
        */
       function closeMobileMenuAndResetIcon() {
         const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
-        const hamburgerIconElement = document.getElementById("hamburgerMenu").querySelector('i'); // Renamed to avoid conflict
+        const hamburgerIcon = document.getElementById("hamburgerMenu").querySelector('i');
         const mainNav = document.querySelector(".main-nav");
         // Select all links and the button in the mobile menu for animation
         const mobileNavLinks = document.querySelectorAll('.mobile-menu-overlay .nav-link, .mobile-menu-overlay .bg-white');
@@ -2259,26 +2263,29 @@
             gsap.to(mobileNavLinks,
                 {
                     opacity: 0,
-                    y: 20,
+                    y: 30, // Changed from 20 to 30 for consistency with index2.html
                     scale: 0.95,
                     duration: 0.3,
                     stagger: 0.05,
                     ease: "power2.in",
                     onComplete: () => {
-                        mobileMenuOverlay.classList.remove("active");
-                        mainNav.classList.remove("menu-open"); // Remove class from main-nav
+                        // Animate overlay back to top after links fade
+                        gsap.to(mobileMenuOverlay, { y: "-10px", opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => {
+                            mobileMenuOverlay.classList.remove("active");
+                            mainNav.classList.remove("menu-open"); // Remove class from main-nav
+                        }});
                     }
                 }
             );
 
-            gsap.to(hamburgerIconElement, { // Use the renamed variable here
+            gsap.to(hamburgerIcon, {
                 rotation: 180,
                 opacity: 0,
                 duration: 0.2,
                 onComplete: () => {
-                    hamburgerIconElement.classList.remove('fa-times');
-                    hamburgerIconElement.classList.add('fa-bars');
-                    gsap.fromTo(hamburgerIconElement, { rotation: -180, opacity: 0 }, { rotation: 0, opacity: 1, duration: 0.2 });
+                    hamburgerIcon.classList.remove('fa-times');
+                    hamburgerIcon.classList.add('fa-bars');
+                    gsap.fromTo(hamburgerIcon, { rotation: -180, opacity: 0 }, { rotation: 0, opacity: 1, duration: 0.2 });
                 }
             });
         }
@@ -2425,6 +2432,19 @@
             mobileMenuOverlay.classList.add("active");
             mainNav.classList.add("menu-open"); // Add class to main-nav
 
+            // Animate overlay from top
+            gsap.fromTo(
+              mobileMenuOverlay,
+              { y: "-10px", opacity: 0 }, /* Adjusted start for dropdown */
+              { y: "0%", opacity: 1, duration: 0.4, ease: "power2.out" }
+            );
+            // Animate mobile nav links and button with more distinct stagger and slightly bouncy ease
+            gsap.fromTo(
+              mobileNavLinks,
+              { opacity: 0, y: 30, scale: 0.95 },
+              { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.08, ease: "back.out(1.7)", delay: 0.2 }
+            );
+
             // Animate icon to 'times'
             gsap.to(hamburgerIcon, {
               rotation: 180, // Rotate 180 degrees
@@ -2436,12 +2456,6 @@
                 gsap.fromTo(hamburgerIcon, { rotation: -180, opacity: 0 }, { rotation: 0, opacity: 1, duration: 0.2 });
               }
             });
-
-            // Animate mobile menu links
-            gsap.fromTo(mobileNavLinks,
-              { opacity: 0, y: 20, scale: 0.95 }, // Added scale for a subtle pop-in
-              { opacity: 1, y: 0, scale: 1, duration: 0.3, stagger: 0.05, ease: "power2.out", delay: 0.2 }
-            );
           });
         }
 
