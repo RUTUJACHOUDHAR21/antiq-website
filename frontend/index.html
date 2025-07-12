@@ -739,9 +739,9 @@
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         background: rgba(
           255,
-          255,
-          255,
-          0.1
+255,
+255,
+0.1
         ); /* Slightly brighter background on hover */
       }
 
@@ -1516,6 +1516,7 @@
       let mobileNavLinks;
       let hamburgerIcon;
       let mainNav;
+      let mobilePreorderButton; // Declare this globally
 
       /**
        * Initializes the Three.js scene, camera, renderer, and lights.
@@ -2260,17 +2261,24 @@
             gsap.to(mobileNavLinks,
                 {
                     opacity: 0,
-                    y: 20,
+                    y: 30, // Animate down
                     scale: 0.95,
                     duration: 0.3,
                     stagger: 0.05,
-                    ease: "power2.in",
-                    onComplete: () => {
-                        mobileMenuOverlay.classList.remove("active");
-                        mainNav.classList.remove("menu-open"); // Remove class from main-nav
-                    }
+                    ease: "power2.in"
                 }
             );
+
+            gsap.to(mobileMenuOverlay, {
+                y: "-10px", // Animate overlay slightly up then out
+                opacity: 0,
+                duration: 0.4,
+                ease: "power2.in",
+                onComplete: () => {
+                    mobileMenuOverlay.classList.remove("active");
+                    mainNav.classList.remove("menu-open"); // Remove class from main-nav
+                }
+            });
 
             gsap.to(hamburgerIcon, {
                 rotation: 180,
@@ -2328,15 +2336,17 @@
                 }
               });
 
-            closeMobileMenuAndResetIcon(); // Close mobile menu and reset icon after navigation
+            // Close mobile menu and reset icon after navigation
+            closeMobileMenuAndResetIcon();
           }
         } else if (isPreorderButton) {
             // If it's the preorder button, always show popup and close mobile menu if open
             event.preventDefault(); // Prevent default navigation
             closeMobileMenuAndResetIcon(); // Close mobile menu if open
-            // No need for setTimeout here if you want immediate navigation after menu close,
-            // but if the navigation is to a new page (like index2.html), it will happen anyway.
-            window.location.href = event.target.href;
+            // Use a small delay to allow the menu close animation to start before navigating
+            setTimeout(() => {
+                window.location.href = event.target.href;
+            }, 300); // Adjust delay as needed
         }
       }
 
@@ -2354,6 +2364,7 @@
         hamburgerIcon = document.getElementById("hamburgerMenu").querySelector('i');
         // Include the preorder button in mobileNavLinks as it's now an <a> tag and needs to be animated
         mobileNavLinks = document.querySelectorAll('.mobile-menu-overlay .nav-link, .mobile-menu-overlay .bg-white');
+        mobilePreorderButton = document.querySelector('.mobile-menu-overlay .bg-white'); // Initialize this here
 
 
         gsap.set(introText, { opacity: 0, scale: 0.5 });
@@ -2439,8 +2450,8 @@
 
             // Animate mobile menu links
             gsap.fromTo(mobileNavLinks,
-              { opacity: 0, y: 20, scale: 0.95 }, // Added scale for a subtle pop-in
-              { opacity: 1, y: 0, scale: 1, duration: 0.3, stagger: 0.05, ease: "power2.out", delay: 0.2 }
+              { opacity: 0, y: 30, scale: 0.95 }, // Adjusted initial y for consistency
+              { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.08, ease: "back.out(1.7)", delay: 0.2 }
             );
           });
         }
@@ -2450,6 +2461,17 @@
             closeMobileMenuAndResetIcon();
           });
         }
+
+        // Close mobile menu when a link inside it is clicked (excluding the "x" button, which is handled above)
+        mobileNavLinks.forEach((link) => {
+            link.addEventListener("click", (event) => {
+                // Only close if it's a navigation link (not the preorder button if it handles its own navigation)
+                if (link.getAttribute("href").startsWith("#")) {
+                    closeMobileMenuAndResetIcon();
+                }
+            });
+        });
+
 
         const contactForm = document.getElementById("contactForm");
         if (contactForm) {
