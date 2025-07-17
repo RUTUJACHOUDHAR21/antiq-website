@@ -4,6 +4,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ANTIQ Radio Experience</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for social media icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
     <style>
       /* Custom scrollbar styles */
       ::-webkit-scrollbar {
@@ -46,10 +58,10 @@
       /* Navigation Styles */
       .main-nav {
         position: fixed;
-        top: 0;
+        top: 0; /* Adjusted to 0 */
         left: 0;
         width: 100%;
-        padding: 1rem 2rem;
+        padding: 0.75rem 1rem; /* Adjusted padding for desktop (reduced horizontal) */
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -63,7 +75,7 @@
 
       .main-nav.scrolled {
         background: rgba(0, 0, 0, 0.8);
-        padding: 0.5rem 2rem;
+        padding: 0.5rem 1rem; /* Adjusted padding for desktop (reduced horizontal) */
       }
 
       .nav-logo {
@@ -88,18 +100,21 @@
       .nav-logo img {
         height: 100%;
         width: auto;
-        transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        will-change: transform;
+        transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+        will-change: transform, opacity;
       }
 
-      .nav-logo:hover img {
-        transform: rotate(15deg) scale(1.1);
+      /* New style for when the mobile menu is open */
+      .main-nav.menu-open .nav-logo img {
+        opacity: 0; /* Fade out logo when menu is open */
+        transform: scale(0.8); /* Slightly shrink logo */
       }
+
 
       .nav-links {
         display: flex;
         gap: 1.5rem;
-        margin-right: 1rem;
+        margin-right: 0; /* Removed margin-right */
         align-items: center;
       }
 
@@ -137,24 +152,6 @@
         font-weight: bold;
       }
 
-      /* New style for the Preorder button */
-      .nav-preorder-button {
-        background-color: white;
-        color: black !important; /* Use !important to override .nav-link color */
-        padding: 0.5rem 1rem;
-        border-radius: 20px; /* Increased border-radius for more rounded corners */
-        font-weight: bold;
-        text-decoration: none; /* Ensure no underline */
-        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        will-change: transform, background, color;
-      }
-
-      .nav-preorder-button:hover {
-        background-color: #ddd;
-        transform: translateY(-2px);
-        color: black !important; /* Keep text black on hover */
-      }
-
       /* Hamburger menu icon */
       .hamburger-menu {
         display: none; /* Hidden by default, shown on mobile */
@@ -162,54 +159,82 @@
         font-size: 1.8rem;
         color: white;
         z-index: 101; /* Above other nav elements */
+        transition: transform 0.3s ease, opacity 0.3s ease; /* For icon animation */
       }
 
       /* Mobile menu overlay */
       .mobile-menu-overlay {
         display: none; /* Hidden by default */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(11, 10, 10, 0.95);
-        backdrop-filter: blur(15px);
-        z-index: 99; /* Below main nav, above content */
+        position: absolute; /* Changed to absolute */
+        top: 100%; /* Position below the nav bar */
+        right: 0; /* Align to the right of the nav bar */
+        width: max-content; /* Fit content horizontally based on widest child */
+        min-width: 160px; /* Give it a reasonable minimum width */
+        height: auto; /* Fit content vertically */
+        padding: 1rem; /* Add some padding around the menu items */
+        background: rgba(0, 0, 0, 0.9); /* Blackish background */
+        backdrop-filter: blur(5px); /* Subtle blur */
+        border-radius: 10px; /* Rounded corners for the dropdown */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+        z-index: 99;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        align-items: center; /* Center items horizontally within the dropdown */
+        justify-content: flex-start; /* Align content to the top */
         opacity: 0;
-        transform: translateX(100%);
-        transition: opacity 0.3s ease, transform 0.3s ease;
+        transform: translateY(-10px); /* Start slightly above its final position */
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out; /* Keep transition */
       }
 
       .mobile-menu-overlay.active {
         display: flex;
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
       }
 
+      /* Mobile menu links will now be inside mobile-menu-container */
       .mobile-menu-overlay .nav-links {
+        display: flex;
         flex-direction: column;
-        gap: 2rem;
-        margin-right: 0;
+        gap: 0.8rem; /* Slightly increased gap for better spacing */
+        align-items: stretch; /* Make children fill the width of this container */
+        width: 100%; /* Take full width of its parent (mobile-menu-container) */
       }
 
       .mobile-menu-overlay .nav-link {
-        font-size: 1.5rem;
-        padding: 0.8rem 0;
+        font-size: 1.3rem; /* Reduced font size for mobile menu links */
+        padding: 0.6rem 1rem; /* Reduced padding for mobile menu links */
+        border-radius: 10px;
+        text-align: center;
+        width: 100%; /* Make links take full width of the parent (nav-links) */
+        /* Initial state for animation */
+        opacity: 0;
+        transform: translateY(20px);
+        transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
       }
 
-      /* Close button for mobile menu */
+      .mobile-menu-overlay .nav-link:hover,
+      .mobile-menu-overlay .nav-link.active {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-5px) scale(1.05);
+        color: #fff;
+      }
+
+      /* Close button for mobile menu - position relative to the overlay */
       .mobile-menu-close {
         position: absolute;
-        top: 1.5rem;
-        right: 2rem;
-        font-size: 2rem;
+        top: 0.5rem; /* Adjusted close button position within the dropdown */
+        right: 0.5rem; /* Adjusted close button position within the dropdown */
+        font-size: 1.5rem; /* Slightly smaller close button for dropdown */
         color: white;
         cursor: pointer;
         background: none;
         border: none;
+        transition: transform 0.3s ease;
+        z-index: 100; /* Ensure close button is clickable */
+      }
+      .mobile-menu-close:hover {
+        transform: rotate(90deg) scale(1.1);
+        color: #ddd; /* Slightly dim on hover */
       }
 
       /* Model Canvas Styles */
@@ -337,7 +362,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2rem;
+        font-size: 2rem; /* Default font size */
         opacity: 1;
         z-index: 1000;
         will-change: opacity, transform; /* Added transform for GSAP */
@@ -983,20 +1008,30 @@
 
       /* Responsive adjustments */
       @media (max-width: 768px) {
+        body {
+          padding-top: 0px; /* Adjusted padding for mobile view to clear fixed nav bar */
+        }
         .main-nav {
-          padding: 0.8rem 1.5rem; /* Adjust padding for smaller screens */
+          padding: 0.15rem 0.4rem; /* Adjusted padding for mobile */
+          justify-content: space-between; /* Changed to space-between for logo on one side, menu on other */
+          gap: 0.2rem; /* Reduced gap for logo and hamburger */
+        }
+
+        .nav-logo {
+          height: 50px; /* Adjust logo height for mobile */
+          width: auto; /* Maintain aspect ratio */
+        }
+        .main-nav.scrolled .nav-logo {
+          height: 40px; /* Smaller scrolled logo for mobile */
         }
 
         .nav-links {
           display: none; /* Hide desktop nav links */
         }
 
-        .nav-preorder {
-          display: none; /* Hide desktop preorder button */
-        }
-
         .hamburger-menu {
           display: block; /* Show hamburger menu icon */
+          font-size: 1.5rem; /* Slightly smaller hamburger icon for better balance */
         }
 
         .split-view {
@@ -1012,6 +1047,15 @@
 
         .ion-title {
           font-size: 3rem;
+        }
+
+        .ion-headline {
+          font-size: 1rem;
+        }
+
+        /* Adjust font size for intro text on mobile */
+        .intro .intro-text {
+          font-size: 1.5rem; /* Smaller font size for mobile intro text */
         }
 
         .section-title {
@@ -1079,17 +1123,26 @@
         .section-content {
           font-size: 0.9rem;
         }
+        .main-nav {
+            padding: 0.15rem 0.2rem; /* Even smaller padding for nav bar */
+        }
+        .nav-logo {
+            height: 40px; /* Even smaller logo height */
+        }
+        .hamburger-menu {
+            font-size: 1.2rem; /* Even smaller hamburger icon */
+        }
+        .mobile-menu-close {
+            font-size: 1.2rem; /* Even smaller close button */
+            top: 0.5rem;
+            right: 0.7rem;
+        }
+        .mobile-menu-overlay .nav-link {
+            font-size: 1rem; /* Even smaller mobile menu links */
+            padding: 0.3rem 0.5rem;
+        }
       }
     </style>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Font Awesome for social media icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
   </head>
   <body>
     <nav class="main-nav">
@@ -1110,26 +1163,36 @@
         <a href="#about" class="nav-link">ABOUT</a>
         <a href="#services" class="nav-link">SERVICES</a>
         <a href="#contact" class="nav-link">CONTACT</a>
-        <!-- Changed to nav-link class -->
-        <a href="index2.html" class="nav-link nav-preorder-button">PREORDER</a>
+        <!-- Consolidated Preorder button as an anchor tag, using the same classes as the mobile one for consistency -->
+        <a
+          href="index2.html"
+          class="bg-white text-black font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-75"
+        >
+          Pre-order Now
+        </a>
+      </div>
+
+      <!-- Mobile Menu Overlay -->
+      <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <button class="mobile-menu-close" id="mobileMenuClose">×</button>
+        <div class="nav-links">
+          <a href="#home" class="nav-link" data-section="home">HOME</a>
+          <a href="#menu" class="nav-link" data-section="menu">PRODUCTS</a>
+          <a href="#about" class="nav-link" data-section="about">ABOUT</a>
+          <a href="#services" class="nav-link" data-section="services"
+            >SERVICES</a
+          >
+          <a href="#contact" class="nav-link" data-section="contact">CONTACT</a>
+          <!-- NEW PREORDER BUTTON FOR MOBILE MENU -->
+          <a
+            href="index2.html"
+            class="bg-white text-black font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-75 mt-4"
+          >
+            Pre-order Now
+          </a>
+        </div>
       </div>
     </nav>
-
-    <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
-      <button class="mobile-menu-close" id="mobileMenuClose">×</button>
-      <div class="nav-links">
-        <a href="#home" class="nav-link active" data-section="home">HOME</a>
-        <a href="#menu" class="nav-link" data-section="menu">PRODUCTS</a>
-        <a href="#about" class="nav-link" data-section="about">ABOUT</a>
-        <a href="#services" class="nav-link" data-section="services"
-          >SERVICES</a
-        >
-        <a href="#contact" class="nav-link" data-section="contact">CONTACT</a>
-        <!-- Changed to nav-link class -->
-        <a href="index2.html" class="nav-link nav-preorder-button">PREORDER</a>
-      </div>
-    </div>
 
     <!-- Success message (kept for potential alternative use, but popup is primary) -->
     <div class="success-message" id="successMessage">
@@ -1321,17 +1384,15 @@
                 <a href="index2.html" class="footer-link">Preorder</a>
               </div>
               <div class="social-icons">
-                <a href="#" class="social-icon"
-                  ><i class="fab fa-facebook-f"></i
-                ></a>
-                <a href="#" class="social-icon"
+                <!-- Removed Facebook link -->
+                <a href="https://x.com/ANTI_Ai_PVT_LTD" target="_blank" class="social-icon"
                   ><i class="fab fa-twitter"></i
                 ></a>
-                <a href="#" class="social-icon"
-                  ><i class="fab fa-instagram"></i
-                ></a>
-                <a href="#" class="social-icon"
+                <a href="https://www.linkedin.com/company/anti-ai/" target="_blank" class="social-icon"
                   ><i class="fab fa-linkedin-in"></i
+                ></a>
+                <a href="https://www.instagram.com/antiai.ltd" target="_blank" class="social-icon"
+                  ><i class="fab fa-instagram"></i
                 ></a>
               </div>
             </footer>
@@ -1451,6 +1512,11 @@
       let modelUserRotationX = 0;
       let modelContinuousRotationY = 0;
       let modelScrollRotationY = 0;
+
+      // Global variables for mobile menu elements
+      let mobileNavLinks;
+      let hamburgerIcon;
+      let mainNav;
 
       /**
        * Initializes the Three.js scene, camera, renderer, and lights.
@@ -1678,6 +1744,7 @@
           const combinedTargetYRotation =
             targetRotationY +
             modelContinuousRotationY +
+
             modelUserRotationY +
             modelScrollRotationY;
 
@@ -1780,6 +1847,27 @@
           targetPositionX = props.positionX;
           targetPositionY = props.positionY || 0;
           targetZoom = props.zoom;
+
+          // --- Mobile-specific adjustments for model view ---
+          if (window.innerWidth <= 768) { // Check if it's a mobile view
+            // For mobile, center the model horizontally in all content sections
+            targetPositionX = 0;
+            // Adjust vertical position for mobile if needed (e.g., slightly lower for better visibility)
+            // For home section, keep original Y. For others, maybe slightly lower or center.
+            if (currentSection !== 'home') {
+                targetPositionY = -0.2; // Slightly lower for content sections on mobile
+            } else {
+                targetPositionY = props.positionY; // Keep home section's specific Y
+            }
+
+            // Adjust zoom for mobile to ensure the model is well-framed
+            if (currentSection === 'home') {
+                targetZoom = 12.0; // Slightly more zoomed out for home on mobile to show more of the model
+            } else {
+                targetZoom = 7.0; // Adjust zoom for content sections on mobile
+            }
+          }
+          // --- End mobile adjustments ---
         }
       }
 
@@ -1948,7 +2036,8 @@
         let newSection = "home";
         sections.forEach((section) => {
           const rect = section.getBoundingClientRect();
-          if (rect.top <= window.innerHeight * 0.5 && rect.bottom >= 0) {
+          // Adjust the threshold for section activation
+          if (rect.top <= window.innerHeight * 0.5 && rect.bottom >= window.innerHeight * 0.5) {
             newSection = section.id;
           }
         });
@@ -2048,23 +2137,38 @@
               const formData = new FormData(this);
               const data = Object.fromEntries(formData.entries());
 
-              // Simulate API call success/failure
-              // In a real application, you would send this data to your backend:
-              // const response = await fetch("/api/preorder", { ... });
-              // const result = await response.json();
+              try {
+                // *** IMPORTANT CHANGE HERE: Update the URL to your live backend URL ***
+                const response = await fetch(
+                  "https://antiq-website.onrender.com/api/preorder", // Changed from localhost to your live backend URL
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                  }
+                );
 
-              // For now, simulate success after a short delay
-              setTimeout(() => {
-                const success = true; // Change to false to simulate an error
-                if (success) {
+                const result = await response.json();
+
+                if (response.ok) {
+                  hidePopup();
                   showPopup("preorderSuccess");
                   this.reset();
                 } else {
+                  hidePopup();
                   showPopup("error");
                   document.getElementById("errorMessage").textContent =
-                    "Simulated: Failed to submit preorder. (Backend needed)";
+                    result.message || "Failed to submit preorder.";
                 }
-              }, 1000); // Simulate network delay
+              } catch (error) {
+                console.error("Error:", error);
+                hidePopup();
+                showPopup("error");
+                document.getElementById("errorMessage").textContent =
+                  "Network error. Please try again later.";
+              }
             });
           }
         }
@@ -2143,11 +2247,55 @@
       }
 
       /**
+       * Closes the mobile menu overlay and resets the hamburger icon.
+       */
+      function closeMobileMenuAndResetIcon() {
+        const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
+        const hamburgerIcon = document.getElementById("hamburgerMenu").querySelector('i');
+        const mainNav = document.querySelector(".main-nav");
+        // Select all links and the button in the mobile menu for animation
+        const mobileNavLinks = document.querySelectorAll('.mobile-menu-overlay .nav-link, .mobile-menu-overlay .bg-white');
+
+        if (mobileMenuOverlay.classList.contains("active")) {
+            gsap.to(mobileNavLinks,
+                {
+                    opacity: 0,
+                    y: 30, // Changed from 20 to 30 for consistency with index2.html
+                    scale: 0.95,
+                    duration: 0.3,
+                    stagger: 0.05,
+                    ease: "power2.in",
+                    onComplete: () => {
+                        // Animate overlay back to top after links fade
+                        gsap.to(mobileMenuOverlay, { y: "-10px", opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => {
+                            mobileMenuOverlay.classList.remove("active");
+                            mainNav.classList.remove("menu-open"); // Remove class from main-nav
+                        }});
+                    }
+                }
+            );
+
+            gsap.to(hamburgerIcon, {
+                rotation: 180,
+                opacity: 0,
+                duration: 0.2,
+                onComplete: () => {
+                    hamburgerIcon.classList.remove('fa-times');
+                    hamburgerIcon.classList.add('fa-bars');
+                    gsap.fromTo(hamburgerIcon, { rotation: -180, opacity: 0 }, { rotation: 0, opacity: 1, duration: 0.2 });
+                }
+            });
+        }
+      }
+
+      /**
        * Handles navigation link clicks, smoothly scrolls to the section,
        * and updates the active navigation link.
        */
       function handleNavClick(event) {
-        // Only prevent default for internal links (those starting with #)
+        // Check if the clicked element is the Pre-order button (which is now an <a> tag with bg-white class)
+        const isPreorderButton = event.target.classList.contains('bg-white');
+
         if (event.target.getAttribute("href").startsWith("#")) {
           event.preventDefault();
           const targetId = event.target.getAttribute("href").substring(1);
@@ -2183,13 +2331,16 @@
                 }
               });
 
-            // Close mobile menu if open
-            const mobileMenuOverlay =
-              document.getElementById("mobileMenuOverlay");
-            if (mobileMenuOverlay.classList.contains("active")) {
-              mobileMenuOverlay.classList.remove("active");
-            }
+            closeMobileMenuAndResetIcon(); // Close mobile menu and reset icon after navigation
           }
+        } else if (isPreorderButton) {
+            // If it's the preorder button, always show popup and close mobile menu if open
+            event.preventDefault(); // Prevent default navigation
+            closeMobileMenuAndResetIcon(); // Close mobile menu if open
+            // Use a small delay to allow the menu close animation to start before navigating
+            setTimeout(() => {
+                window.location.href = event.target.href;
+            }, 300); // Adjust delay as needed
         }
       }
 
@@ -2201,6 +2352,13 @@
         const ionContainer = document.querySelector(".ion-container");
         const antiqLetters = document.querySelectorAll(".antiq-letter");
         const ionHeadline = document.getElementById("ion-headline");
+
+        // Initialize global variables
+        mainNav = document.querySelector(".main-nav");
+        hamburgerIcon = document.getElementById("hamburgerMenu").querySelector('i');
+        // Include the preorder button in mobileNavLinks as it's now an <a> tag and needs to be animated
+        mobileNavLinks = document.querySelectorAll('.mobile-menu-overlay .nav-link, .mobile-menu-overlay .bg-white');
+
 
         gsap.set(introText, { opacity: 0, scale: 0.5 });
         gsap.set(ionMain, { opacity: 0 });
@@ -2253,9 +2411,9 @@
           )
           .to(ionHeadline, { opacity: 0.85, y: 0, duration: 0.8 }, "<0.2");
 
-        // Attach handleNavClick only to internal navigation links (those starting with #)
+        // Attach handleNavClick to all navigation links, including the preorder button
         document
-          .querySelectorAll(".main-nav .nav-links .nav-link[href^='#']")
+          .querySelectorAll(".main-nav .nav-links a, .mobile-menu-overlay .nav-links a")
           .forEach((link) => {
             link.addEventListener("click", handleNavClick);
           });
@@ -2265,26 +2423,44 @@
         const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
         const mobileMenuClose = document.getElementById("mobileMenuClose");
 
+
         if (hamburgerMenu) {
           hamburgerMenu.addEventListener("click", () => {
             mobileMenuOverlay.classList.add("active");
+            mainNav.classList.add("menu-open"); // Add class to main-nav
+
+            // Animate overlay from top
+            gsap.fromTo(
+              mobileMenuOverlay,
+              { y: "-10px", opacity: 0 }, /* Adjusted start for dropdown */
+              { y: "0%", opacity: 1, duration: 0.4, ease: "power2.out" }
+            );
+            // Animate mobile nav links and button with more distinct stagger and slightly bouncy ease
+            gsap.fromTo(
+              mobileNavLinks,
+              { opacity: 0, y: 30, scale: 0.95 },
+              { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.08, ease: "back.out(1.7)", delay: 0.2 }
+            );
+
+            // Animate icon to 'times'
+            gsap.to(hamburgerIcon, {
+              rotation: 180, // Rotate 180 degrees
+              opacity: 0,
+              duration: 0.2,
+              onComplete: () => {
+                hamburgerIcon.classList.remove('fa-bars');
+                hamburgerIcon.classList.add('fa-times');
+                gsap.fromTo(hamburgerIcon, { rotation: -180, opacity: 0 }, { rotation: 0, opacity: 1, duration: 0.2 });
+              }
+            });
           });
         }
 
         if (mobileMenuClose) {
           mobileMenuClose.addEventListener("click", () => {
-            mobileMenuOverlay.classList.remove("active");
+            closeMobileMenuAndResetIcon();
           });
         }
-
-        // Close mobile menu when an internal link inside it is clicked
-        document
-          .querySelectorAll(
-            ".mobile-menu-overlay .nav-links .nav-link[href^='#']"
-          )
-          .forEach((link) => {
-            link.addEventListener("click", handleNavClick); // Re-use handleNavClick
-          });
 
         const contactForm = document.getElementById("contactForm");
         if (contactForm) {
@@ -2294,8 +2470,9 @@
             const data = Object.fromEntries(formData.entries());
 
             try {
+              // *** IMPORTANT CHANGE HERE: Update the URL to your live backend URL ***
               const response = await fetch(
-                "http://localhost:5501/api/contact",
+                "https://antiq-website.onrender.com/api/contact", // Changed from localhost to your live backend URL
                 {
                   method: "POST",
                   headers: {
