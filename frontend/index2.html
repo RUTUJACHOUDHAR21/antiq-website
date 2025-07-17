@@ -715,7 +715,11 @@
       class="w-full flex justify-between items-center px-6 md:px-12 py-6 main-nav relative"
     >
       <!-- Logo -->
-      <div class="text-white text-2xl font-semibold">ANTIQ</div> 
+      
+<div>
+  <img src="logo.jpeg" alt="ANTIQ " class="h-10 w-auto" />
+</div>
+
 
       <!-- Hamburger menu icon for mobile -->
       <div class="hamburger-menu" id="hamburgerMenu">
@@ -1053,21 +1057,69 @@
         const heroParagraph = document.getElementById("hero-paragraph");
         const ctaButtons = document.querySelector(".cta-buttons");
         const featureElements = document.querySelectorAll(".fade-in-element");
+        const mainNav = document.querySelector(".main-nav"); // Get the navigation bar
+        const headerLogo = document.getElementById("header-logo"); // Get the logo element
+        const leftSection = document.getElementById("left-section"); // Get the left content section
+        const rightSection = document.getElementById("right-section"); // Get the right content section
 
-        // Hero section animations
+
+        // Initial state for header elements before animation
+        gsap.set(mainNav, { y: -100, opacity: 0, filter: "blur(20px)" }); // Start off-screen and blurred
+        gsap.set(headerLogo, { opacity: 0, scale: 0.8 }); // Initial state for logo
+        gsap.set(leftSection, { opacity: 0, y: 50 }); // Initial state for left section
+        gsap.set(rightSection, { opacity: 0, y: 50 }); // Initial state for right section
+
+
+        // Header animation
+        gsap.to(mainNav, {
+          y: 0,
+          opacity: 1,
+          filter: "blur(0px)", // Animate blur to 0
+          duration: 1,
+          ease: "power2.out",
+          delay: 0.2, // Slightly delay after body load
+        });
+
+        // Logo animation
+        gsap.to(headerLogo, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          ease: "back.out(1.7)",
+          delay: 0.8, // Delay after nav animation starts
+        });
+
+        // Main content sections animation
+        gsap.to(leftSection, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          delay: 1.0, // Start after header animation
+        });
+        gsap.to(rightSection, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          delay: 1.2, // Slightly delay right section
+        });
+
+
+        // Hero section animations (these will now run after the main sections appear)
         gsap.from(heroHeadline, {
           opacity: 0,
           y: 50,
           duration: 1,
           ease: "power3.out",
-          delay: 0.5,
+          delay: 1.5, // Adjusted delay
         });
         gsap.from(heroParagraph, {
           opacity: 0,
           y: 50,
           duration: 1,
           ease: "power3.out",
-          delay: 0.7,
+          delay: 1.7, // Adjusted delay
         });
         gsap.from(ctaButtons.children, {
           opacity: 0,
@@ -1075,7 +1127,7 @@
           duration: 0.8,
           ease: "power3.out",
           stagger: 0.2,
-          delay: 0.9,
+          delay: 1.9, // Adjusted delay
         });
 
         // Feature highlights fade-in on scroll (if not already visible)
